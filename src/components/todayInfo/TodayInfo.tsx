@@ -1,28 +1,52 @@
+import { useState } from 'react'
+import { DoughnutChart } from '../doughnutChart/DoughnutChart'
 import { useStyles } from './TodayInfo.styles'
-import GridLayout from 'react-grid-layout'
 
 export function TodayInfo() {
   const classes = useStyles()
-  const layout = [
-    { i: 'b', x: 0, y: 0, w: 1, h: 1, static: true },
-    { i: 'c', x: 1, y: 0, w: 1, h: 1, static: true },
-    { i: 'a', x: 2, y: 0, w: 1, h: 1, static: true },
-  ]
+  const [chartData, setChartData] = useState({
+    labels: ['Green', 'While'],
+    datasets: [
+      {
+        data: [80, 20],
+        backgroundColor: ['#95BF7B', '#FFF'],
+        borderRadius: 10
+      },
+    ],
+  })
 
   return (
     <div className={classes.todayInfo}>
       <div className={classes.title}>Сегодня</div>
-      <GridLayout layout={layout} rowHeight={113} cols={4}>
-        <div className={classes.item} key="a">
-          1
+      <div className={classes.grid}>
+        <div className={`${classes.item} ${classes.exercises}`}>
+          <div className={classes.name}>Упражнения</div>
+          <div className={classes.number}>5</div>
         </div>
-        <div className={classes.item} key="b">
-          2
+        <div className={`${classes.item} ${classes.trainingSessions}`}>
+          <div className={classes.name}>Тренировок</div>
+          <div className={classes.number}>1</div>
         </div>
-        <div className={classes.item} key="c">
-          3
+        <div className={`${classes.item} ${classes.time}`}>
+          <div className={classes.name}>Время</div>
+          <div className={classes.number}>20 мин</div>
         </div>
-      </GridLayout>
+        <div className={`${classes.item} ${classes.daysShockPace}`}>
+          <div className={classes.name}>Дней в ударном темпе</div>
+          <div className={classes.number}>6</div>
+        </div>
+        <div className={`${classes.item} ${classes.accuracy}`}>
+          <div className={classes.name}>Правильность</div>
+          <div className={classes.number}>60%</div>
+        </div>
+        <div className={`${classes.item} ${classes.dailyProgress}`}>
+          <div className={classes.name}>Днейвной прогресс</div>
+          <DoughnutChart chartData={chartData} />
+          <div className={classes.motivationText}>
+            Продолжайте повышать уровень здоровья
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

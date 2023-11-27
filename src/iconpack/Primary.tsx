@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react'
 
 export function Primary(props: SVGProps<SVGSVGElement>) {
   return (
@@ -13,9 +13,9 @@ export function Primary(props: SVGProps<SVGSVGElement>) {
       <path
         d="M8.66667 1.33368L2 9.33368H8L7.33333 14.667L14 6.66701H8L8.66667 1.33368Z"
         stroke="#608674"
-        stroke-width="1.33333"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.33333"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
