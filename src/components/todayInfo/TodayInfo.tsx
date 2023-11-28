@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { HTMLAttributes, useState } from 'react'
 import { DoughnutChart } from '../doughnutChart/DoughnutChart'
 import { useStyles } from './TodayInfo.styles'
 
-export function TodayInfo() {
+export function TodayInfo(props: HTMLAttributes<HTMLDivElement>) {
   const classes = useStyles()
   const [chartData, setChartData] = useState({
     labels: ['Green', 'While'],
