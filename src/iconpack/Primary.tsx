@@ -12,7 +12,7 @@ export function Primary(props: SVGProps<SVGSVGElement>) {
     >
       <path
         d="M8.66667 1.33368L2 9.33368H8L7.33333 14.667L14 6.66701H8L8.66667 1.33368Z"
-        stroke="#608674"
+        stroke="black"
         strokeWidth="1.33333"
         strokeLinecap="round"
         strokeLinejoin="round"

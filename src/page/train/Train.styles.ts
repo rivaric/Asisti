@@ -4,6 +4,7 @@ export const useStyles = createUseStyles({
   train: {
     padding: '30px',
     background: '#f3f3f3',
+    height: '100vh',
   },
 
   windowWebCamera: {
@@ -37,6 +38,7 @@ export const useStyles = createUseStyles({
   progressTitle: {
     fontSize: '16px',
     fontWeight: '500',
+    marginBottom: '10px',
   },
 
   text: {
@@ -66,6 +68,7 @@ export const useStyles = createUseStyles({
     flexDirection: 'column',
     textAlign: 'center',
     alignItems: 'center',
+    gap: '5px',
     width: '100px',
   },
 
@@ -95,6 +98,7 @@ export const useStyles = createUseStyles({
     width: '161px',
     padding: '10px 15px',
     display: 'flex',
+    alignItems: 'center',
     gap: '7px',
     fontSize: '16px',
     fontWeight: '500',

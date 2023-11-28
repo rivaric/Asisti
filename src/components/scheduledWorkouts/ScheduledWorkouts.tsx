@@ -12,7 +12,7 @@ export function ScheduledWorkouts(props: HTMLAttributes<HTMLDivElement>) {
         Назначенные тренировки
       </div>
       <div className={classes.listTrain}>
-        <Card />
+        <Card /><Card /><Card /><Card /><Card />
       </div>
     </div>
   )

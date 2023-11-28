@@ -6,6 +6,8 @@ export const useStyles = createUseStyles({
     background: '#F2F3F4',
     borderRadius: '10px',
     padding: '20px 25px',
+    height: '431px',
+    width: '100%'
   },
 
   title: {
@@ -15,6 +17,10 @@ export const useStyles = createUseStyles({
 
   listTrain: {
     display: 'flex',
-    gap: '30px',
+    flexWrap: 'wrap',
+    gap: '29px',
+    borderRadius: '10px',
+    overflow: 'auto',
+    height: '90%'
   },
 })
