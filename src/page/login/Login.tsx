@@ -1,7 +1,7 @@
 import { useStyles } from './Login.styles'
 import { Logo } from '../../iconpack/Logo'
 
-export function Login() {
+export default function Login() {
   const classes = useStyles()
 
   return (
