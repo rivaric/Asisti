@@ -8,12 +8,15 @@ export default function Statistics() {
   const classes = useStyles()
 
   return (
-    <div className={classes.statistic}>
-      <div className={classes.wrapper}>
-        <TodayInfo />
-        <HistoryCard />
+    <div className={classes.container}>
+      <Root />
+      <div className={classes.statistic}>
+        <div className={classes.wrapper}>
+          <TodayInfo />
+          <HistoryCard />
+        </div>
+        <ScheduledWorkouts className={classes.scheduledWorkouts} />
       </div>
-      <ScheduledWorkouts className={classes.scheduledWorkouts} />
     </div>
   )
 }

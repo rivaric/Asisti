@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core'
 
-export const useHeadStyles = createStyles(({ colors }) => ({
+export const useHeadStyles = createStyles(() => ({
   thead: {
     background: 'white',
     position: 'sticky',
@@ -8,21 +8,13 @@ export const useHeadStyles = createStyles(({ colors }) => ({
     left: 0,
     top: '-0.5%',
     textAlign: 'center',
-    '::before': {
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      background: colors.gray[4],
-      width: '100%',
-    },
     '::after': {
       content: '""',
       position: 'absolute',
       left: 0,
       bottom: 0,
       height: '.7px',
-      background: colors.gray[4],
+      background: '#D0DACE',
       width: '100%',
     },
   },
@@ -31,6 +23,5 @@ export const useHeadStyles = createStyles(({ colors }) => ({
     fontSize: '16px',
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 }))

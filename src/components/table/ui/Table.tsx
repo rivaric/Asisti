@@ -9,6 +9,7 @@ export const HistoryTable = () => {
   const { classes } = useTableStyles()
   console.log('a')
   return (
+    
     <Skeleton visible={false} className={classes.container}>
       <Title p="20px 30px" fz={16}>
         Недавние тренировки

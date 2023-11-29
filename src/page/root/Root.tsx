@@ -15,12 +15,12 @@ export function Root() {
   return (
     <div className={classes.root}>
       <div className={classes.navbar}>
-        <div className={classes.wrapper}>
+        <div>
           <Logo className={classes.logo} />
           <ul className={classes.nav}>
             <li
               className={pathname === '/profile' ? classes.active : ''}
-              onClick={() => navigate('/profile')}
+              // onClick={() => navigate('/profile')}
             >
               <Profile />
               Профиль

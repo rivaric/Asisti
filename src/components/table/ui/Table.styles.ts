@@ -1,31 +1,13 @@
 import { createStyles } from '@mantine/core'
 
-export const useTableStyles = createStyles(({ colors }) => ({
+export const useTableStyles = createStyles(() => ({
   container: {
     flex: 1,
     backgroundColor: 'white',
     whiteSpace: 'nowrap',
     position: 'static',
     borderRadius: '10px',
-    '::-webkit-scrollbar': {
-      background: 'white',
-      borderRadius: '0 10px 10px 0',
-    },
     overflowY: 'auto',
-    '::-webkit-scrollbar-corner': {
-      background: 'white',
-    },
-    '::-webkit-scrollbar-thumb': {
-      background: colors.gray[3],
-      borderRadius: '999px',
-      border: '4px solid rgba(0, 0, 0, 0)',
-      backgroundClip: 'padding-box',
-    },
-    '::-webkit-scrollbar-thumb:hover': {
-      background: colors.gray[4],
-      border: '4px solid rgba(0, 0, 0, 0)',
-      backgroundClip: 'padding-box',
-    },
     maxHeight: '93vh',
   },
   table: {
@@ -33,24 +15,29 @@ export const useTableStyles = createStyles(({ colors }) => ({
     color: 'black',
     'thead, tbody': {
       'th, td': {
-        textAlign: 'center',
         borderLeft: 'none',
         borderRight: 'none',
         ':last-of-type': {
           borderRight: 'none',
         },
         ':first-of-type': {
+          padding: '20px 30px',
           borderLeft: 'none',
           borderBottom: 'none',
         },
       },
       tr: {
         height: '60px',
+        cursor: 'pointer',
+    ':hover': {
+      transition: '0.3s',
+      background: '#F1F8E7',
+    },
       },
     },
     tbody: {
       'tr > td': {
-        borderTop: `1px ${colors.gray[4]} solid`,
+        borderTop: `1px #D0DACE solid`,
       },
     },
   },

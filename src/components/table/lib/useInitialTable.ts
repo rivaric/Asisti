@@ -6,16 +6,89 @@ import {
 import { useInitialColumns } from './useInitialColumns'
 import { Train } from '../../../types/Train'
 
-export const useInitialTable = () => {
-  const data: Train[] = [
+const data: Train[] = [
     {
       id: 0,
       name: 'Тренировка для кистей',
       progress: '50%',
       time: '30 мин',
       date: '23.03.2023',
-    },
-  ]
+    }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      }, {
+        id: 0,
+        name: 'Тренировка для кистей',
+        progress: '50%',
+        time: '30 мин',
+        date: '23.03.2023',
+      },
+  ] 
+
+export const useInitialTable = () => {
   const columns = useInitialColumns()
 
   const table = useReactTable({

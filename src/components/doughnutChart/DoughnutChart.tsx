@@ -7,15 +7,10 @@ export function DoughnutChart({ chartData, width, height }: DoughnutChartProps) 
   const classes = useStyles()
 
   return (
-<<<<<<< HEAD
-    <div className={classes.chart}>
-      <div className={classes.pracent}>80%</div>
-=======
     <div className={classes.chart} style={{width: width, height: height}}>
       <div className={classes.pracent}>
         80%
       </div>
->>>>>>> 3fa88932a147d85b07cf54d80efe49442cbc7a82
       <Doughnut
         data={chartData}
         options={{

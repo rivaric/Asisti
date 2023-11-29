@@ -41,8 +41,6 @@ export const useStyles = createUseStyles({
     background: '#F0FFF8',
   },
 
-  wrapper: {},
-
   exit: {
     display: 'flex',
     gap: '6px',

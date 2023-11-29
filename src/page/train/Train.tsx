@@ -4,8 +4,9 @@ import { ArrowLaft } from '../../iconpack/ArrowLaft'
 import { useStyles } from './Train.styles'
 import { Clock } from '../../iconpack/Clock'
 import { Popup } from '../../components/popup/Popup'
+import { Root } from '../root/Root'
 
-export function Train() {
+export default function Train() {
   const classes = useStyles()
   const [isOpenPopup, setIsOpenPopup] = useState(true)
   const [chartData, setChartData] = useState({
@@ -20,7 +21,8 @@ export function Train() {
   })
 
   return (
-    <>
+    <div className={classes.container}>
+      <Root />
       <Popup isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} />
       <div className={classes.train}>
         <div className={classes.windowWebCamera}></div>
@@ -30,7 +32,7 @@ export function Train() {
             <div className={classes.text}>
               Подносите руку ко рту, а затем отводите её
             </div>
-          </div>
+          </div> 
           <div className={classes.progress}>
             <div className={classes.progressTitle}>Прогресс тренировки</div>
             <div className={classes.diagrams}>
@@ -52,13 +54,13 @@ export function Train() {
               12:00
             </div>
             <button className={classes.next}>
-              <div className={classes.nextText}>Слудующее упражнение</div>
+              <div className={classes.nextText}>Следующее упражнение</div>
               <ArrowLaft />
             </button>
             <button className={classes.begin}>Начать</button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

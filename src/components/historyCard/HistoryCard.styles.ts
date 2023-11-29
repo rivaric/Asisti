@@ -46,5 +46,6 @@ export const useStyles = createUseStyles({
     alignItems: 'center',
     color: '#95BF7B',
     fontSize: '14px',
+    cursor: 'pointer',
   },
 })

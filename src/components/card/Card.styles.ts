@@ -12,6 +12,7 @@ export const useStyles = createUseStyles({
     paddingTop: '11px',
     paddingBottom: '13px',
     justifyContent: 'space-between',
+    cursor: 'pointer',
   },
 
   descr: {

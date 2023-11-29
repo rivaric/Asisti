@@ -1,6 +1,5 @@
-import { RowModel, flexRender } from '@tanstack/react-table'
+import { RowModel } from '@tanstack/react-table'
 import { useNavigate } from 'react-router-dom'
-import { useBodyStyles } from './Body.styles'
 import { Train } from '../../../types/Train'
 
 interface BodyProps {
@@ -8,7 +7,6 @@ interface BodyProps {
 }
 
 export const Body = ({ rows }: BodyProps) => {
-  const { classes } = useBodyStyles()
   const navigate = useNavigate()
   console.log(rows.rows[0].original)
   return (
@@ -16,7 +14,6 @@ export const Body = ({ rows }: BodyProps) => {
       {rows.rows.map((row) => (
         <tr
           key={row.id}
-          className={classes.tr}
           onClick={() => navigate(`train/${row.original.id}`)}
         >
           {row.getVisibleCells().map((cell) => (

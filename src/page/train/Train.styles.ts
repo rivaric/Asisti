@@ -1,6 +1,9 @@
 import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
+  container: {
+    display: 'flex'
+  },
   train: {
     padding: '30px',
     background: '#f3f3f3',
