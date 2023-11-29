@@ -9,7 +9,7 @@ export function ScheduledWorkouts(props: HTMLAttributes<HTMLDivElement>) {
     <div className={classes.scheduled}>
       <div className={classes.title}>Назначенные тренировки</div>
       <div className={classes.listTrain}>
-        <Card />
+        <Card /><Card /><Card /><Card /><Card />
       </div>
     </div>
   )

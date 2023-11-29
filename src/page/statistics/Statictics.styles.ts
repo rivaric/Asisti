@@ -3,26 +3,15 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
   statistic: {
     width: '100%',
+    height: '100vh',
     padding: '30px',
-    display: 'grid',
-    gridTemplateRows: '326px 431px',
-    gridTemplateColumns: '771px 222px',
+  },
+
+  wrapper: {
+    display: 'flex',
     gap: '25px',
+    marginBottom: '25px'
   },
 
-  todayStatictics: {
-    gridColumn: '1',
-    gridRow: '1',
-  },
-
-  historyCard: {
-    gridColumn: '2',
-    gridRow: '1',
-  },
-
-  scheduledWorkouts: {
-    gridColumnStart: '1',
-    gridColumnEnd: '3',
-    gridRow: '2',
-  },
+  scheduledWorkouts: {},
 })

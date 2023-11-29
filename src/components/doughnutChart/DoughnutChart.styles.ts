@@ -3,8 +3,8 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
   chart: {
     position: 'relative',
-    width: '100px !important',
-    height: '100px !important',
+    width: '100px',
+    height: '100px',
     background: '#F1F8E7',
     borderRadius: '100%',
     padding: '10px',

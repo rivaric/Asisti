@@ -38,5 +38,8 @@ export const useStyles = createUseStyles({
     background: '#f2f3f4',
     padding: '30px 25px',
     borderRadius: '10px',
+    flexWrap: 'wrap',
+    height: '715px',
+    overflow: 'auto',
   },
 })
