@@ -1,7 +1,7 @@
 export type Train = {
-  id: number
   name: string
-  progress: any
-  time: any
-  date: any
+  verbose_name: string
+  created_at: any
+  repeats: number
+  done_repeats: number
 }

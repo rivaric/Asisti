@@ -12,7 +12,7 @@ export const Body = ({ rows }: BodyProps) => {
   return (
     <tbody>
       {rows.rows.map((row) => (
-        <tr key={row.id} onClick={() => navigate(`train/${row.original.id}`)}>
+        <tr key={row.id} onClick={() => navigate(`train/${row.original.name}`)}>
           {row.getVisibleCells().map((cell) => (
             <td key={cell.id} role="gridcell">
               {cell.getValue<string>()}

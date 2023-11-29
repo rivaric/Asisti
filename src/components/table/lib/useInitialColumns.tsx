@@ -12,9 +12,13 @@ export const useInitialColumns = () =>
         cell: (info) => <Text>{info.getValue<string>()}</Text>,
       },
       {
-        accessorKey: 'progress',
+        accessorKey: 'done_repeats',
         header: () => 'Прогресс',
-        cell: (info) => <Text>{info.getValue<string>()}</Text>,
+        cell: ({ row }) => (
+          <Text>
+            {(row.original.done_repeats * 100) / row.original.repeats}
+          </Text>
+        ),
       },
       {
         accessorKey: 'time',
@@ -22,7 +26,7 @@ export const useInitialColumns = () =>
         cell: (info) => <Text>{info.getValue<string>()}</Text>,
       },
       {
-        accessorKey: 'date',
+        accessorKey: 'created_at',
         header: () => 'Дата',
         cell: (info) => <Text>{info.getValue<string>()}</Text>,
       },

@@ -8,13 +8,13 @@ export default defineConfig({
   server: {
     port: 3000,
     open: 'http://127.0.0.1:3000/login',
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://172.16.0.188:8000/api',
-    //     changeOrigin: true,
-    //     rewrite: (path) => path.replace(/^\/api/, ''),
-    //   },
-    // },
+    proxy: {
+      '/api/v1': {
+        target: 'http://127.0.0.1:8000/api/v1',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/v1/, ''),
+      },
+    },
   },
   build: {
     outDir: 'build',
