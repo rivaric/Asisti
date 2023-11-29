@@ -6,10 +6,8 @@ export function DoughnutChart({ chartData }: any) {
   const classes = useStyles()
 
   return (
-    <div className={classes.chart} >
-      <div className={classes.pracent}>
-        80%
-      </div>
+    <div className={classes.chart}>
+      <div className={classes.pracent}>80%</div>
       <Doughnut
         data={chartData}
         options={{

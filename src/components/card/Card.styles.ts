@@ -1,5 +1,4 @@
-import { createUseStyles } from "react-jss";
-
+import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
   train: {
@@ -25,5 +24,5 @@ export const useStyles = createUseStyles({
     fontSize: '14px',
     color: '#000',
     fontWeight: '400',
-  }
+  },
 })

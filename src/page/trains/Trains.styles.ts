@@ -1,11 +1,10 @@
-import { createUseStyles } from "react-jss";
-
+import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
   trains: {
     width: '100%',
     height: '100%',
-    padding: '30px'
+    padding: '30px',
   },
 
   header: {
@@ -15,7 +14,7 @@ export const useStyles = createUseStyles({
   },
 
   arrow: {
-    transform: 'rotate(180deg)'
+    transform: 'rotate(180deg)',
   },
 
   title: {
@@ -24,13 +23,13 @@ export const useStyles = createUseStyles({
     gap: '5px',
     color: '#000',
     fontWeight: '600',
-    fontSize: '16px'
+    fontSize: '16px',
   },
 
   descr: {
-   color: '#95BF7B' ,
-   fontSize: '16px',
-   fontWeight: '500',
+    color: '#95BF7B',
+    fontSize: '16px',
+    fontWeight: '500',
   },
 
   listExercises: {
@@ -38,6 +37,6 @@ export const useStyles = createUseStyles({
     gap: '30px',
     background: '#f2f3f4',
     padding: '30px 25px',
-    borderRadius: '10px'
-  }
+    borderRadius: '10px',
+  },
 })

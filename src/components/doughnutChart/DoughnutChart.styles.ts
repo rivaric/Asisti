@@ -17,5 +17,5 @@ export const useStyles = createUseStyles({
     transform: 'translateX(-50%) translateY(-50%)',
     fontSize: '16px',
     fontWeight: '500',
-  }
+  },
 })

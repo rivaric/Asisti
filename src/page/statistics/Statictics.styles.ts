@@ -1,9 +1,8 @@
-import { createUseStyles } from "react-jss";
-
+import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
   statistic: {
-    width: "100%",
+    width: '100%',
     padding: '30px',
     display: 'grid',
     gridTemplateRows: '326px 431px',
@@ -25,5 +24,5 @@ export const useStyles = createUseStyles({
     gridColumnStart: '1',
     gridColumnEnd: '3',
     gridRow: '2',
-  }
+  },
 })

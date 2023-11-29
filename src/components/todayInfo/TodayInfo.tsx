@@ -10,7 +10,7 @@ export function TodayInfo(props: HTMLAttributes<HTMLDivElement>) {
       {
         data: [80, 20],
         backgroundColor: ['#95BF7B', '#FFF'],
-        borderRadius: 10
+        borderRadius: 10,
       },
     ],
   })

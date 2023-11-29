@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
   root: {
-    display: 'flex'
+    display: 'flex',
   },
 
   navbar: {
@@ -33,6 +33,7 @@ export const useStyles = createUseStyles({
       alignItems: 'center',
       gap: '6px',
       paddingLeft: '20px',
+      cursor: 'pointer',
     },
   },
 
@@ -46,5 +47,6 @@ export const useStyles = createUseStyles({
     display: 'flex',
     gap: '6px',
     paddingLeft: '20px',
+    cursor: 'pointer',
   },
 })

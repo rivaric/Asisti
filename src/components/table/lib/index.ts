@@ -1,0 +1,1 @@
+export { useInitialTable } from './useInitialTable'

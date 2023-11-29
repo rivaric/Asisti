@@ -1,5 +1,4 @@
-import { createUseStyles } from "react-jss";
-
+import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
   card: {
@@ -27,13 +26,13 @@ export const useStyles = createUseStyles({
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
 
   counter: {
     textAlign: 'right',
     color: '#9DC586',
-    fontWeight: '600'
+    fontWeight: '600',
   },
 
   exerciseName: {
@@ -46,5 +45,5 @@ export const useStyles = createUseStyles({
     alignItems: 'center',
     color: '#95BF7B',
     fontSize: '14px',
-  }
+  },
 })
