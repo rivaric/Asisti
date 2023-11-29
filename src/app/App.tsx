@@ -14,7 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/statistics" element={<Statistics />} />
-        <Route path="/train" element={<Train />} />
+        <Route path="/train/:trainId" element={<Train />} />
         <Route path="/trains" element={<Trains />} />
         <Route path="/history" element={<History />} />
       </Routes>

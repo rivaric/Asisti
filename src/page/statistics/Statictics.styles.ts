@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
   container: {
-    display: 'flex'
+    display: 'flex',
   },
   statistic: {
     width: '100%',
@@ -13,7 +13,7 @@ export const useStyles = createUseStyles({
   wrapper: {
     display: 'flex',
     gap: '25px',
-    marginBottom: '25px'
+    marginBottom: '25px',
   },
 
   scheduledWorkouts: {},

@@ -41,7 +41,7 @@ export function TodayInfo(props: HTMLAttributes<HTMLDivElement>) {
         </div>
         <div className={`${classes.item} ${classes.dailyProgress}`}>
           <div className={classes.name}>Днейвной прогресс</div>
-          <DoughnutChart chartData={chartData} width={100} height={100}/>
+          <DoughnutChart chartData={chartData} width={100} height={100} />
           <div className={classes.motivationText}>
             Продолжайте повышать уровень здоровья
           </div>

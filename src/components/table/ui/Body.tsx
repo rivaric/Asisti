@@ -8,14 +8,11 @@ interface BodyProps {
 
 export const Body = ({ rows }: BodyProps) => {
   const navigate = useNavigate()
-  console.log(rows.rows[0].original)
+
   return (
     <tbody>
       {rows.rows.map((row) => (
-        <tr
-          key={row.id}
-          onClick={() => navigate(`train/${row.original.id}`)}
-        >
+        <tr key={row.id} onClick={() => navigate(`train/${row.original.id}`)}>
           {row.getVisibleCells().map((cell) => (
             <td key={cell.id} role="gridcell">
               {cell.getValue<string>()}

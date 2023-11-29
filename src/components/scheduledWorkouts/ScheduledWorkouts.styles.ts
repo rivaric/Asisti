@@ -6,7 +6,7 @@ export const useStyles = createUseStyles({
     borderRadius: '10px',
     padding: '20px 25px',
     height: '431px',
-    width: '100%'
+    width: '100%',
   },
 
   title: {
@@ -20,6 +20,6 @@ export const useStyles = createUseStyles({
     gap: '29px',
     borderRadius: '10px',
     overflow: 'auto',
-    height: '90%'
+    height: '90%',
   },
 })

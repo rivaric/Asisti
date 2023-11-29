@@ -32,7 +32,7 @@ export default function Train() {
             <div className={classes.text}>
               Подносите руку ко рту, а затем отводите её
             </div>
-          </div> 
+          </div>
           <div className={classes.progress}>
             <div className={classes.progressTitle}>Прогресс тренировки</div>
             <div className={classes.diagrams}>

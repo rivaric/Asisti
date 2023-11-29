@@ -29,10 +29,10 @@ export const useTableStyles = createStyles(() => ({
       tr: {
         height: '60px',
         cursor: 'pointer',
-    ':hover': {
-      transition: '0.3s',
-      background: '#F1F8E7',
-    },
+        ':hover': {
+          transition: '0.3s',
+          background: '#F1F8E7',
+        },
       },
     },
     tbody: {

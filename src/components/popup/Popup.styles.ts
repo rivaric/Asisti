@@ -21,7 +21,7 @@ export const useStyles = createUseStyles({
     padding: '30px',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   text: {
@@ -29,7 +29,7 @@ export const useStyles = createUseStyles({
     fontWeight: '400',
     color: '#000',
     textAlign: 'center',
-    marginBottom: '20px'
+    marginBottom: '20px',
   },
 
   ok: {
@@ -38,5 +38,5 @@ export const useStyles = createUseStyles({
     borderRadius: '10px',
     width: '107px',
     height: '42px',
-  }
+  },
 })
