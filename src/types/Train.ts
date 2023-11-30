@@ -3,5 +3,5 @@ export type Train = {
   verbose_name: string
   created_at: any
   repeats: number
-  done_repeats: number
+  done_repeats: any
 }
