@@ -1,6 +1,5 @@
-import { RowModel } from '@tanstack/react-table'
+import { RowModel, flexRender } from '@tanstack/react-table'
 import { useNavigate } from 'react-router-dom'
-import { Train } from '../../../types/Train'
 
 interface BodyProps {
   rows: RowModel<any>
@@ -12,10 +11,10 @@ export const Body = ({ rows }: BodyProps) => {
   return (
     <tbody>
       {rows.rows.map((row) => (
-        <tr key={row.id}>
+        <tr key={row.original.created_at}>
           {row.getVisibleCells().map((cell) => (
-            <td key={cell.id} role="gridcell">
-              {cell.getValue<string>()}
+            <td onClick={() => console.log(cell)} role="gridcell">
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </td>
           ))}
         </tr>

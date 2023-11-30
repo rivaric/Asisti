@@ -15,7 +15,7 @@ export default function Statistics() {
   useEffect(() => {
     getExercises().then(({ data: fetchedData }) => setData(fetchedData))
   }, [])
-
+  console.log(data)
   return (
     <div className={classes.container}>
       <Root />

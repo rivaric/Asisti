@@ -26,15 +26,17 @@ import {
 import { Camera } from '@mediapipe/camera_utils/camera_utils'
 import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
-import { useTrainStore } from './store'
+import { useExerciseStore, useTrainStore } from '../../store'
 
 export const MPHolistic = () => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
-  const { reccomendation } = useTrainStore((state) => state.exercise)
-  const setRecommendation = useTrainStore((state) => state.setRecommendation)
-  const setCount = useTrainStore((state) => state.setCount)
-  const setComment = useTrainStore((state) => state.setComment)
+  const { recommendation } = useExerciseStore((state) => state.exercise)
+  const setRecommendation = useExerciseStore((state) => state.setRecommendation)
+  const setComment = useExerciseStore((state) => state.setComment)
+
+  const repeat = useTrainStore((state) => state.repeat)
+  const setRepeat = useTrainStore((state) => state.setRepeat)
 
   let stage = null
   let lAngle = 0
@@ -313,7 +315,7 @@ export const MPHolistic = () => {
       setRecommendation(stage)
     }
     if (counterCondition) {
-      setCount((prev) => prev + 1)
+      setRepeat(repeat.done + 1, repeat.require - 1)
     }
   }
 
@@ -321,7 +323,7 @@ export const MPHolistic = () => {
     <div className="flex flex-col items-center">
       <div
         className={`relative border-4 duration-300 ${
-          reccomendation == '' ? 'border-blue-500' : 'border-red-500'
+          recommendation == '' ? 'border-blue-500' : 'border-red-500'
         }`}
       >
         <canvas

@@ -45,7 +45,13 @@ export function Root() {
             </li>
           </ul>
         </div>
-        <div className={classes.exit} onClick={() => navigate('/login')}>
+        <div
+          className={classes.exit}
+          onClick={() => {
+            localStorage.removeItem('access_token')
+            navigate('/login')
+          }}
+        >
           <Exit />
           Выход
         </div>
