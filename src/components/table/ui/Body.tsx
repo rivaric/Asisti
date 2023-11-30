@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Train } from '../../../types/Train'
 
 interface BodyProps {
-  rows: RowModel<Train>
+  rows: RowModel<any>
 }
 
 export const Body = ({ rows }: BodyProps) => {
@@ -12,7 +12,7 @@ export const Body = ({ rows }: BodyProps) => {
   return (
     <tbody>
       {rows.rows.map((row) => (
-        <tr key={row.id} onClick={() => navigate(`train/${row.original.name}`)}>
+        <tr key={row.id}>
           {row.getVisibleCells().map((cell) => (
             <td key={cell.id} role="gridcell">
               {cell.getValue<string>()}

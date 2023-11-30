@@ -1,14 +1,20 @@
 import { useNavigate } from 'react-router-dom'
 import { useStyles } from './Card.styles'
 
-export function Card() {
+interface CardProps {
+  id: string
+  name: string
+  verbose_name: string
+}
+
+export function Card({ id, name, verbose_name }: CardProps) {
   const classes = useStyles()
   const navigate = useNavigate()
   return (
-    <div className={classes.train} onClick={() => navigate('/train')}>
+    <div className={classes.train} onClick={() => navigate(`/train/${id}`)}>
       <div className={classes.descr}>15 мин • 5 упражнений</div>
       {/* <img className={classes.img} /> */}
-      <div className={classes.name}>Тренировка для рук</div>
+      <div className={classes.name}>{name}</div>
     </div>
   )
 }

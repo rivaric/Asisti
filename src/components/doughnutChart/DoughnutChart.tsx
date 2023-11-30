@@ -1,7 +1,12 @@
 import 'chart.js/auto'
 import { Doughnut } from 'react-chartjs-2'
 import { useStyles } from './DoughnutChart.styles'
-import { DoughnutChartProps } from './DoughnutChart.interface'
+
+interface DoughnutChartProps {
+  chartData: number[]
+  width: number
+  height: number
+}
 
 export function DoughnutChart({
   chartData,
@@ -9,12 +14,22 @@ export function DoughnutChart({
   height,
 }: DoughnutChartProps) {
   const classes = useStyles()
-
   return (
     <div className={classes.chart} style={{ width: width, height: height }}>
-      <div className={classes.pracent}>80%</div>
+      <div className={classes.pracent}>
+        {((chartData[0] / (chartData[0] + chartData[1])) * 100).toFixed()}%
+      </div>
       <Doughnut
-        data={chartData}
+        data={{
+          labels: ['Green', 'While'],
+          datasets: [
+            {
+              data: chartData,
+              backgroundColor: ['#95BF7B', '#FFF'],
+              borderRadius: 10,
+            },
+          ],
+        }}
         options={{
           responsive: true,
           maintainAspectRatio: false,

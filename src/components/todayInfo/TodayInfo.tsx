@@ -1,19 +1,11 @@
-import { HTMLAttributes, useState } from 'react'
+import { useState } from 'react'
 import { DoughnutChart } from '../doughnutChart/DoughnutChart'
 import { useStyles } from './TodayInfo.styles'
+import { Exercise } from '../../types'
 
-export function TodayInfo(props: HTMLAttributes<HTMLDivElement>) {
+export function TodayInfo({ data }: { data: Exercise[] }) {
   const classes = useStyles()
-  const [chartData, setChartData] = useState({
-    labels: ['Green', 'While'],
-    datasets: [
-      {
-        data: [80, 20],
-        backgroundColor: ['#95BF7B', '#FFF'],
-        borderRadius: 10,
-      },
-    ],
-  })
+  const [chartData, setChartData] = useState([0, 100])
 
   return (
     <div className={classes.todayInfo}>
@@ -21,7 +13,7 @@ export function TodayInfo(props: HTMLAttributes<HTMLDivElement>) {
       <div className={classes.grid}>
         <div className={`${classes.item} ${classes.exercises}`}>
           <div className={classes.name}>Упражнения</div>
-          <div className={classes.number}>5</div>
+          <div className={classes.number}>{data.length}</div>
         </div>
         <div className={`${classes.item} ${classes.trainingSessions}`}>
           <div className={classes.name}>Тренировок</div>
@@ -40,7 +32,7 @@ export function TodayInfo(props: HTMLAttributes<HTMLDivElement>) {
           <div className={classes.number}>60%</div>
         </div>
         <div className={`${classes.item} ${classes.dailyProgress}`}>
-          <div className={classes.name}>Днейвной прогресс</div>
+          <div className={classes.name}>Дневной прогресс</div>
           <DoughnutChart chartData={chartData} width={100} height={100} />
           <div className={classes.motivationText}>
             Продолжайте повышать уровень здоровья
