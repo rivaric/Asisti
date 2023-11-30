@@ -114,7 +114,7 @@ export const useStyles = createUseStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: '7px',
-    fontSize: 'clamp(1rem, 0rem + 1.25vw, 2rem)',
+    fontSize: 'clamp(0.75rem, 0.375rem + 0.469vw, 1.125rem)',
     fontWeight: '500',
     color: '#95BF7B',
     textAlign: 'left',
@@ -133,10 +133,9 @@ export const useStyles = createUseStyles({
     borderRadius: '10px',
   },
   end: {
-    width: '161px',
+    flexGrow: '1',
     background: '#BC5959',
     color: '#fff',
-    height: '42px',
     borderRadius: '10px',
   },
 })

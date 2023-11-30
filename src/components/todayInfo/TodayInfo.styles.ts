@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles(() => {
   return {
     todayInfo: {
-      width: 'max-content',
+      // width: 'max-content',
       borderRadius: '10px',
       background: '#F2F3F4',
       padding: '20px 25px',
@@ -25,7 +25,8 @@ export const useStyles = createUseStyles(() => {
       background: '#fff',
       borderRadius: '10px',
       paddingBottom: '30px',
-      padding: '30px 50px',
+      padding: '30px 45px',
+      height: '100%',
     },
 
     name: {
@@ -41,7 +42,7 @@ export const useStyles = createUseStyles(() => {
     grid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(3)',
-      gridTemplateRows: 'repeat(2)',
+      gridTemplateRows: 'repeat(2, 170px)',
       gridGap: '20px',
       // display: 'flex'
     },

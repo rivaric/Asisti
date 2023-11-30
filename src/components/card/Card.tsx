@@ -9,13 +9,13 @@ interface CardProps {
   img?: string
 }
 
-export function Card({ id, name, verbose_name, }: CardProps) {
+export function Card({ id, name, verbose_name }: CardProps) {
   const classes = useStyles()
   const navigate = useNavigate()
 
   return (
     <div className={classes.train} onClick={() => navigate(`/train/${id}`)}>
-      {/* <div className={classes.descr}>15 мин • 5 упражнений</div> */}
+      <div className={classes.descr}>15 мин • 5 упражнений</div>
       <img src={exercise} width="80%" />
       <div className={classes.name}>{verbose_name || name}</div>
     </div>

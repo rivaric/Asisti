@@ -320,8 +320,8 @@ export const MPHolistic = () => {
           ref={canvasRef}
           className="absolute w-full"
           style={{
-            width: '100%',
-            height: '100%',
+            width: '1200px',
+            height: '700px',
             borderRadius: '10px',
           }}
         >
