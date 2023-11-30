@@ -12,6 +12,12 @@ export function Root() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
+  const onExit = () => {
+    localStorage.removeItem('access')
+    localStorage.removeItem('refresh')
+    navigate('/login')
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.navbar}>
@@ -20,7 +26,6 @@ export function Root() {
           <ul className={classes.nav}>
             <li
               className={pathname === '/profile' ? classes.active : ''}
-              // onClick={() => navigate('/profile')}
             >
               <Profile />
               Профиль
@@ -45,13 +50,7 @@ export function Root() {
             </li>
           </ul>
         </div>
-        <div
-          className={classes.exit}
-          onClick={() => {
-            localStorage.removeItem('access_token')
-            navigate('/login')
-          }}
-        >
+        <div className={classes.exit} onClick={onExit}>
           <Exit />
           Выход
         </div>

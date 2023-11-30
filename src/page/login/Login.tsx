@@ -1,48 +1,42 @@
 import { useStyles } from './Login.styles'
 import { Logo } from '../../iconpack/Logo'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { IFormInput } from './Login.interface'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { login } from '../../api'
+import { login } from '../../api/auth'
 
 export default function Login() {
   const classes = useStyles()
+  const { register, handleSubmit } = useForm<IFormInput>({ mode: 'onBlur' })
   const navigate = useNavigate()
-  const [phone, setPhone] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState(false)
+
+  const onSubmit: SubmitHandler<IFormInput> = ({ phone, password }) => {
+    login(phone, password).then(({ data }) => {
+      localStorage.setItem('access', data.access_token)
+      localStorage.setItem('refresh', data.refresh_token)
+      navigate('/statistics')
+    })
+  }
 
   return (
-    <div className={classes.form}>
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       <div className="logo"></div>
       <Logo />
       <input
         type="text"
         className={classes.input}
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        placeholder="Логин"
+        placeholder="Телефон"
+        {...register('phone', { required: true })}
       />
       <input
         type="text"
         className={classes.input}
-        onChange={(e) => setPassword(e.target.value)}
         placeholder="Пароль"
+        {...register('password', { required: true })}
       />
-      <button
-        // type="submit"
-        className={classes.button}
-        onClick={() =>
-          login(phone, password)
-            .then(({ data }) => {
-              localStorage.setItem('access_token', data.access_token)
-              navigate('/statistics')
-            })
-            .catch(() => setError(true))
-        }
-      >
-        {error && 'Не удалось выполнить вход'}
+      <button type="submit" className={classes.button}>
         Войти
       </button>
-    </div>
+    </form>
   )
 }

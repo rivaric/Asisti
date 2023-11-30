@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { RouterProvider } from './lib/RouterProvider'
 import { lazy } from 'react'
-import { WithAccess } from './lib/WithAccess'
+import { CheckAuth } from '../HOC/CheckAuth'
 
 const Login = lazy(() => import('../page/login/Login'))
 const Statistics = lazy(() => import('../page/statistics/Statistics'))
@@ -17,33 +17,33 @@ export default function App() {
         <Route
           path="/statistics"
           element={
-            <WithAccess>
+            <CheckAuth>
               <Statistics />
-            </WithAccess>
+            </CheckAuth>
           }
         />
         <Route
           path="/train/:trainId"
           element={
-            <WithAccess>
+            <CheckAuth>
               <Train />
-            </WithAccess>
+            </CheckAuth>
           }
         />
         <Route
           path="/trains"
           element={
-            <WithAccess>
+            <CheckAuth>
               <Trains />
-            </WithAccess>
+            </CheckAuth>
           }
         />
         <Route
           path="/history"
           element={
-            <WithAccess>
+            <CheckAuth>
               <History />
-            </WithAccess>
+            </CheckAuth>
           }
         />
       </Routes>
