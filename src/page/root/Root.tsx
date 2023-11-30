@@ -24,9 +24,7 @@ export function Root() {
         <div>
           <Logo className={classes.logo} />
           <ul className={classes.nav}>
-            <li
-              className={pathname === '/profile' ? classes.active : ''}
-            >
+            <li className={pathname === '/profile' ? classes.active : ''}>
               <Profile />
               Профиль
             </li>

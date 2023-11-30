@@ -132,4 +132,11 @@ export const useStyles = createUseStyles({
     height: '42px',
     borderRadius: '10px',
   },
+  end: {
+    width: '161px',
+    background: '#BC5959',
+    color: '#fff',
+    height: '42px',
+    borderRadius: '10px',
+  },
 })

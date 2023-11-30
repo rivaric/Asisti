@@ -1,7 +1,8 @@
 /* eslint-disable */
+// @ts-nocheck
 'use client'
 
-import React, { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import Webcam from 'react-webcam'
 import {
   Holistic,
@@ -10,33 +11,24 @@ import {
   POSE_LANDMARKS_RIGHT,
   POSE_CONNECTIONS,
   HAND_CONNECTIONS,
-  FACEMESH_TESSELATION,
-  FACEMESH_RIGHT_EYE,
-  FACEMESH_RIGHT_EYEBROW,
-  FACEMESH_LEFT_EYE,
-  FACEMESH_LEFT_EYEBROW,
-  FACEMESH_FACE_OVAL,
-  FACEMESH_LIPS,
-} from '@mediapipe/holistic/holistic'
-import {
-  drawConnectors,
-  drawLandmarks,
-  lerp,
-} from '@mediapipe/drawing_utils/drawing_utils'
-import { Camera } from '@mediapipe/camera_utils/camera_utils'
+} from '@mediapipe/holistic/'
+import { drawConnectors, drawLandmarks, lerp } from '@mediapipe/drawing_utils/'
+import { Camera } from '@mediapipe/camera_utils/'
 import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
-import { useTrainStore } from './store'
+import { useExerciseStore, useTrainStore } from '../../store'
 
 export const MPHolistic = () => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
-  const { reccomendation } = useTrainStore((state) => state.exercise)
-  const setRecommendation = useTrainStore((state) => state.setRecommendation)
-  const setCount = useTrainStore((state) => state.setCount)
-  const setComment = useTrainStore((state) => state.setComment)
+  const { recommendation } = useExerciseStore((state) => state.exercise)
+  const setRecommendation = useExerciseStore((state) => state.setRecommendation)
+  const setComment = useExerciseStore((state) => state.setComment)
 
-  let stage = null
+  const repeat = useTrainStore((state) => state.repeat)
+  const setRepeat = useTrainStore((state) => state.setRepeat)
+
+  let stage = ''
   let lAngle = 0
   let rAngle = 0
   let lDist = 1000
@@ -313,7 +305,7 @@ export const MPHolistic = () => {
       setRecommendation(stage)
     }
     if (counterCondition) {
-      setCount((prev) => prev + 1)
+      setRepeat(repeat.done + 1, repeat.require - 1)
     }
   }
 
@@ -321,7 +313,7 @@ export const MPHolistic = () => {
     <div className="flex flex-col items-center">
       <div
         className={`relative border-4 duration-300 ${
-          reccomendation == '' ? 'border-blue-500' : 'border-red-500'
+          recommendation == '' ? 'border-blue-500' : 'border-red-500'
         }`}
       >
         <canvas

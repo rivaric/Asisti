@@ -22,7 +22,7 @@ export default function Statistics() {
       <div className={classes.statistic}>
         <div className={classes.wrapper}>
           <TodayInfo data={data} />
-          <HistoryCard />
+          <HistoryCard exercise={data[0]} />
         </div>
         <ScheduledWorkouts data={data} />
       </div>

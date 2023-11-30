@@ -3,7 +3,10 @@ import { Doughnut } from 'react-chartjs-2'
 import { useStyles } from './DoughnutChart.styles'
 
 interface DoughnutChartProps {
-  chartData: number[]
+  chartData: {
+    done: number
+    require: number
+  }
   width: number
   height: number
 }
@@ -14,17 +17,22 @@ export function DoughnutChart({
   height,
 }: DoughnutChartProps) {
   const classes = useStyles()
+
   return (
     <div className={classes.chart} style={{ width: width, height: height }}>
       <div className={classes.pracent}>
-        {((chartData[0] / (chartData[0] + chartData[1])) * 100).toFixed()}%
+        {(
+          (chartData.done / (chartData.require + chartData.done)) *
+          100
+        ).toFixed()}
+        %
       </div>
       <Doughnut
         data={{
           labels: ['Green', 'While'],
           datasets: [
             {
-              data: chartData,
+              data: Object.values(chartData),
               backgroundColor: ['#95BF7B', '#FFF'],
               borderRadius: 10,
             },

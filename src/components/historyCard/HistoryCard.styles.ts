@@ -28,6 +28,7 @@ export const useStyles = createUseStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    cursor: 'pointer',
     width: '80%'
   },
 

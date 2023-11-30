@@ -1,7 +1,7 @@
 export type Train = {
   name: string
   verbose_name: string
-  created_at: any
+  created_at: string
   repeats: number
-  done_repeats: any
+  done_repeats: number
 }

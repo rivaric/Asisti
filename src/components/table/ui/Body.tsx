@@ -1,25 +1,19 @@
-import { RowModel } from '@tanstack/react-table'
-import { useNavigate } from 'react-router-dom'
-import { Train } from '../../../types/Train'
+import { RowModel, flexRender } from '@tanstack/react-table'
 
 interface BodyProps {
   rows: RowModel<any>
 }
 
-export const Body = ({ rows }: BodyProps) => {
-  const navigate = useNavigate()
-
-  return (
-    <tbody>
-      {rows.rows.map((row) => (
-        <tr key={row.id}>
-          {row.getVisibleCells().map((cell) => (
-            <td key={cell.id} role="gridcell">
-              {cell.getValue<string>()}
-            </td>
-          ))}
-        </tr>
-      ))}
-    </tbody>
-  )
-}
+export const Body = ({ rows }: BodyProps) => (
+  <tbody>
+    {rows.rows.map((row) => (
+      <tr key={row.original.created_at}>
+        {row.getVisibleCells().map((cell) => (
+          <td role="gridcell" key={row.original.id}>
+            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+          </td>
+        ))}
+      </tr>
+    ))}
+  </tbody>
+)

@@ -9,8 +9,14 @@ export function ScheduledWorkouts({ data }: { data: Exercise[] }) {
     <div className={classes.scheduled}>
       <div className={classes.title}>Назначенные тренировки</div>
       <div className={classes.listTrain}>
-        {data.map(({ id, name, verbose_name }) => (
-          <Card key={id} id={id} name={name} verbose_name={verbose_name} />
+        {data.map(({ id, name, verbose_name, image_url }) => (
+          <Card
+            key={id}
+            id={id}
+            name={name}
+            verbose_name={verbose_name}
+            img={image_url}
+          />
         ))}
       </div>
     </div>

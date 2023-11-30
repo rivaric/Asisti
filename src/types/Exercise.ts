@@ -4,5 +4,5 @@ export type Exercise = {
   verbose_name: string
   repeats: number
   user_exercise_id: string
-  image_url: string
+  image_url?: string
 }
