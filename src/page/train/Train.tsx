@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom'
 export default function Train() {
   const classes = useStyles()
   const navigate = useNavigate()
-  const access = localStorage.getItem('access_token')
 
   const { recommendation, comment } = useExerciseStore(
     (state) => state.exercise
@@ -37,14 +36,12 @@ export default function Train() {
   }>()
 
   useEffect(() => {
-    getAllExercises(access!).then(({ data: fetchedData }) => {
+    getAllExercises().then(({ data: fetchedData }) => {
       setData(fetchedData)
       setExercises(1, fetchedData.exercises.length - 1)
       setRepeat(0, fetchedData.exercises[0].repeats)
     })
-  }, [navigate, access])
-
-  console.log(current, data?.exercises.length)
+  }, [navigate, setExercises, setRepeat])
 
   return (
     <div className={classes.container}>
@@ -96,8 +93,7 @@ export default function Train() {
                   if (current + 1 < Number(data?.exercises?.length))
                     completeExercise(
                       String(data?.exercises[current].user_exercise_id),
-                      repeat.done,
-                      access!
+                      repeat.done
                     ).then(() => {
                       setCurrent(current + 1)
                       setExercises(exercises.done + 1, exercises.require - 1)
@@ -113,7 +109,12 @@ export default function Train() {
             {current + 1 < Number(data?.exercises?.length) ? (
               <button className={classes.begin}>Начать</button>
             ) : (
-              <button className={classes.end}>Завершить</button>
+              <button
+                className={classes.end}
+                onClick={() => navigate('/history')}
+              >
+                Завершить
+              </button>
             )}
           </div>
         </div>

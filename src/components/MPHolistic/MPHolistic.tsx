@@ -1,7 +1,8 @@
 /* eslint-disable */
+// @ts-nocheck
 'use client'
 
-import React, { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import Webcam from 'react-webcam'
 import {
   Holistic,
@@ -10,20 +11,9 @@ import {
   POSE_LANDMARKS_RIGHT,
   POSE_CONNECTIONS,
   HAND_CONNECTIONS,
-  FACEMESH_TESSELATION,
-  FACEMESH_RIGHT_EYE,
-  FACEMESH_RIGHT_EYEBROW,
-  FACEMESH_LEFT_EYE,
-  FACEMESH_LEFT_EYEBROW,
-  FACEMESH_FACE_OVAL,
-  FACEMESH_LIPS,
-} from '@mediapipe/holistic/holistic'
-import {
-  drawConnectors,
-  drawLandmarks,
-  lerp,
-} from '@mediapipe/drawing_utils/drawing_utils'
-import { Camera } from '@mediapipe/camera_utils/camera_utils'
+} from '@mediapipe/holistic/'
+import { drawConnectors, drawLandmarks, lerp } from '@mediapipe/drawing_utils/'
+import { Camera } from '@mediapipe/camera_utils/'
 import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
@@ -38,7 +28,7 @@ export const MPHolistic = () => {
   const repeat = useTrainStore((state) => state.repeat)
   const setRepeat = useTrainStore((state) => state.setRepeat)
 
-  let stage = null
+  let stage = ''
   let lAngle = 0
   let rAngle = 0
   let lDist = 1000

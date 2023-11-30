@@ -1,18 +1,19 @@
-import { HTMLAttributes } from 'react'
 import { useStyles } from './HistoryCard.styles'
 import { ArrowLaft } from '../../iconpack/ArrowLaft'
 import { useNavigate } from 'react-router-dom'
+import { Exercise } from '../../types'
 
-export function HistoryCard(props: HTMLAttributes<HTMLDivElement>) {
+export function HistoryCard({exercise}: {exercise: Exercise}) {
   const classes = useStyles()
   const navigate = useNavigate()
+
   return (
     <div className={classes.card}>
       <div className={classes.title}>История упражнений</div>
-      <div className={classes.exercise}>
+      <div className={classes.exercise} onClick={() => navigate(`/train/${exercise.id}`)}>
         <div className={classes.counter}>12/16</div>
-        {/* <img className={classes.img} /> */}
-        <div className={classes.exerciseName}>Упражнение для рук</div>
+        <img src={exercise?.image_url} />
+        <div className={classes.exerciseName}>{exercise?.verbose_name || exercise?.name}</div>
       </div>
       <div className={classes.toHistory} onClick={() => navigate('/history')}>
         Посмотреть историю

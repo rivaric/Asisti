@@ -1,7 +1,7 @@
 import { $api } from '.'
 import { Exercise } from '../types'
 
-export const getAllExercises = (access: string) =>
+export const getAllExercises = () =>
   $api.get<{
     exercises: Exercise[]
     id: string
@@ -10,8 +10,4 @@ export const getAllExercises = (access: string) =>
     phone: string
     role: string
     surname: string
-  }>('/users/me', {
-    headers: {
-      Authorization: `Bearer ${access}`,
-    },
-  })
+  }>('/users/me')

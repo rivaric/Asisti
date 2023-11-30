@@ -16,7 +16,7 @@ export const useInitialColumns = () =>
         accessorKey: 'done_repeats',
         header: () => 'Прогресс',
         cell: ({ row }) => (
-          <Text onClick={() => console.log(row.original)}>
+          <Text>
             {(row.original.done_repeats * 100) / row.original.repeats}%
           </Text>
         ),

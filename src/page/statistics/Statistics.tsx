@@ -15,14 +15,14 @@ export default function Statistics() {
   useEffect(() => {
     getExercises().then(({ data: fetchedData }) => setData(fetchedData))
   }, [])
-  console.log(data)
+
   return (
     <div className={classes.container}>
       <Root />
       <div className={classes.statistic}>
         <div className={classes.wrapper}>
           <TodayInfo data={data} />
-          <HistoryCard />
+          <HistoryCard exercise={data[0]} />
         </div>
         <ScheduledWorkouts data={data} />
       </div>

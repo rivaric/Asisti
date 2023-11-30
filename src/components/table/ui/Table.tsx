@@ -13,8 +13,7 @@ export const HistoryTable = () => {
   const { classes } = useTableStyles()
 
   useEffect(() => {
-    const access_token = localStorage.getItem('access_token')
-    getHistory(access_token!).then(({ data }) => setData(data))
+    getHistory().then(({ data }) => setData(data))
   }, [])
 
   return (
