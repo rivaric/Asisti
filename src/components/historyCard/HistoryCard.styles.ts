@@ -8,11 +8,12 @@ export const useStyles = createUseStyles({
     width: '100%',
     background: '#F2F3F4',
     borderRadius: '10px',
-    paddingTop: '20px',
+    padding: '10px',
   },
 
   title: {
-    fontSize: '16px',
+    fontSize: 'clamp(1rem, 0rem + 1.25vw, 2rem)',
+    textAlign: 'center',
     fontWeight: '600',
     color: '#0F1317',
     marginBottom: '21px',
@@ -21,31 +22,33 @@ export const useStyles = createUseStyles({
   exercise: {
     background: '#fff',
     borderRadius: '10px',
-    width: '176px',
-    height: '216px',
+    flexGrow: '1',
     marginBottom: '15px',
-    padding: '10px',
+    padding: '10px 25px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    width: '80%'
   },
 
   counter: {
+    fontSize: 'clamp(0.75rem, 0.375rem + 0.469vw, 1.125rem)',
     textAlign: 'right',
     color: '#9DC586',
     fontWeight: '600',
   },
 
   exerciseName: {
+    fontSize: 'clamp(0.75rem, 0.375rem + 0.469vw, 1.125rem)',
     textAlign: 'center',
-    fontSize: '14px',
   },
 
   toHistory: {
     display: 'flex',
     alignItems: 'center',
     color: '#95BF7B',
-    fontSize: '14px',
+    fontSize: 'clamp(0.75rem, 0.375rem + 0.469vw, 1.125rem)',
     cursor: 'pointer',
+    gap: '10px'
   },
 })

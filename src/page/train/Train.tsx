@@ -29,15 +29,13 @@ export default function Train() {
 
   const access = localStorage.getItem('access_token')
   useEffect(() => {
-    if (access) {
-      getAllExercises(access).then(({ data: fetchedData }) => {
-        console.log(fetchedData)
-        setExercises(fetchedData.exercises.length)
-        setId(fetchedData.exercises[0].id)
-        setData(fetchedData.exercises)
-      })
-    } else navigate('/login')
-  }, [navigate])
+    getAllExercises().then(({ data: fetchedData }) => {
+      console.log(fetchedData)
+      setExercises(fetchedData.exercises.length)
+      setId(fetchedData.exercises[0].id)
+      setData(fetchedData.exercises)
+    })
+  }, [])
 
   useEffect(() => {
     setExerciseData([1, exercises - 1])
@@ -84,12 +82,13 @@ export default function Train() {
           <div className={classes.buttonAndTimer}>
             <div className={classes.timer}>
               <Clock />
+              12:00
             </div>
             <button className={classes.next}>
               <div
                 className={classes.nextText}
                 onClick={() => {
-                  completeExercise(id, count, access!).then(() => {
+                  completeExercise(id, count).then(() => {
                     setExerciseData([exerciseData[0] + 1, exerciseData[1] - 1])
                     setRepeatData([0, 100])
                   })

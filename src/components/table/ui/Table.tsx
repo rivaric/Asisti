@@ -4,22 +4,16 @@ import { useTableStyles } from './Table.styles'
 import { Head } from './Head'
 import { Body } from './Body'
 import { useEffect, useState } from 'react'
-import { getExercises, getHistory } from '../../../api'
+import { getHistory } from '../../../api'
 import { Train } from '../../../types/Train'
-import { useNavigate } from 'react-router-dom'
 
 export const HistoryTable = () => {
   const [data, setData] = useState<Train[]>([])
   const { table } = useInitialTable(data)
   const { classes } = useTableStyles()
-  const navigate = useNavigate()
-
-  const access_token = localStorage.getItem('access_token')
-  if (!access_token) navigate('/login')
 
   useEffect(() => {
-    const access_token = localStorage.getItem('access_token')
-    getHistory(access_token!).then(({ data }) => setData(data))
+    getHistory().then(({ data }) => setData(data))
   }, [])
 
   return (

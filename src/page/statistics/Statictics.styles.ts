@@ -5,6 +5,8 @@ export const useStyles = createUseStyles({
     display: 'flex',
   },
   statistic: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '100%',
     height: '100vh',
     padding: '30px',

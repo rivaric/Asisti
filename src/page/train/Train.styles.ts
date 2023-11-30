@@ -6,18 +6,25 @@ export const useStyles = createUseStyles({
     position: 'relative',
   },
   train: {
+    display: 'flex',
+    flexDirection: 'column',
     padding: '30px',
     background: '#f3f3f3',
     width: '100%',
   },
 
   windowWebCamera: {
+    flexGrow: '1',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     background: '#fff',
     borderRadius: '10px',
     marginBottom: '30px',
   },
 
   info: {
+    height: '25%',
     display: 'flex',
     gap: '25px',
   },
@@ -26,43 +33,47 @@ export const useStyles = createUseStyles({
     borderRadius: '10px',
     padding: '15px 20px',
     background: '#fff',
-    height: '180px',
-    width: '487px',
+    minHeight: '100%',
+    flexGrow: '1'
   },
 
   title: {
     color: '#000',
-    fontSize: '20px',
+    fontSize: 'clamp(1rem, 0rem + 1.25vw, 2rem)',
     fontWeight: '500',
     marginBottom: '20px',
   },
 
   progressTitle: {
-    fontSize: '16px',
+    fontSize: 'clamp(1rem, 0rem + 1.25vw, 2rem)',
     fontWeight: '500',
     marginBottom: '10px',
   },
 
   text: {
-    fontSize: '16px',
+    fontSize: 'clamp(0.75rem, 0.375rem + 0.469vw, 1.125rem)',
     fontWeight: '400',
   },
 
   progress: {
+    flexGrow: '0.5',
     background: '#fff',
     textAlign: 'center',
     padding: '15px 25px',
     borderRadius: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around'
   },
 
   progressText: {
-    fontSize: '14px',
+    fontSize: 'clamp(0.75rem, 0.375rem + 0.469vw, 1.125rem)',
   },
 
   diagrams: {
     display: 'flex',
-    justifyContent: 'space-between',
-    width: '270px',
+    justifyContent: 'space-around',
+    // width: '270px',
   },
 
   diagram: {
@@ -71,38 +82,39 @@ export const useStyles = createUseStyles({
     textAlign: 'center',
     alignItems: 'center',
     gap: '5px',
-    width: '100px',
+    width: 'min-content',
   },
 
   buttonAndTimer: {
     display: 'flex',
+    flexGrow: '0.3',
     flexDirection: 'column',
     height: '100%',
     gap: '15px',
   },
 
   timer: {
-    width: '161px',
-    height: '47px',
+    flexGrow: '1',
     borderRadius: '10px',
     display: 'flex',
     background: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: '30px',
+    fontSize: 'clamp(2rem, 0rem + 1.25vw, 3rem)',
     gap: '10px',
   },
 
   next: {
+    flexGrow: '1',
     borderRadius: '10px',
     border: '1px solid #95BF7B',
     background: '#fff',
-    width: '161px',
     padding: '10px 15px',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: '7px',
-    fontSize: '16px',
+    fontSize: 'clamp(1rem, 0rem + 1.25vw, 2rem)',
     fontWeight: '500',
     color: '#95BF7B',
     textAlign: 'left',
@@ -113,7 +125,8 @@ export const useStyles = createUseStyles({
   },
 
   begin: {
-    width: '161px',
+    fontSize: 'clamp(1rem, 0rem + 1.25vw, 2rem)',
+    flexGrow: '1',
     background: '#95BF7B',
     color: '#fff',
     height: '42px',

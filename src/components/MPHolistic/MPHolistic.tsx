@@ -329,7 +329,7 @@ export const MPHolistic = () => {
           className="absolute w-full"
           style={{
             width: '100%',
-            height: '80vh',
+            height: '100%',
             borderRadius: '10px',
           }}
         >
