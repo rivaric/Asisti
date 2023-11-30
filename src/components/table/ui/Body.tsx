@@ -15,7 +15,7 @@ export const Body = ({ rows }: BodyProps) => {
         <tr key={row.id}>
           {row.getVisibleCells().map((cell) => (
             <td key={cell.id} role="gridcell">
-              {cell.getValue<string>()} 
+              {cell.getValue<string>()}
             </td>
           ))}
         </tr>

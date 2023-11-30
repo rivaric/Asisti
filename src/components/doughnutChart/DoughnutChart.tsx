@@ -14,11 +14,10 @@ export function DoughnutChart({
   height,
 }: DoughnutChartProps) {
   const classes = useStyles()
-  console.log(chartData)
   return (
     <div className={classes.chart} style={{ width: width, height: height }}>
       <div className={classes.pracent}>
-        {(chartData[0]/(chartData[0] + chartData[1])*100).toFixed()}%
+        {((chartData[0] / (chartData[0] + chartData[1])) * 100).toFixed()}%
       </div>
       <Doughnut
         data={{

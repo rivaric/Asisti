@@ -3,7 +3,7 @@ import { DoughnutChart } from '../doughnutChart/DoughnutChart'
 import { useStyles } from './TodayInfo.styles'
 import { Exercise } from '../../types'
 
-export function TodayInfo({ data }: {data: Exercise[]}) {
+export function TodayInfo({ data }: { data: Exercise[] }) {
   const classes = useStyles()
   const [chartData, setChartData] = useState([0, 100])
 

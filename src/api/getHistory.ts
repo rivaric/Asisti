@@ -1,3 +1,8 @@
 import { $api } from './axios'
 
-export const getHistory = () => $api.get('/exercises/history')
+export const getHistory = (access: string) =>
+  $api.get('/exercises/history', {
+    headers: {
+      Authorization: `Bearer ${access}`,
+    },
+  })

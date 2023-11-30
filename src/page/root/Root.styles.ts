@@ -35,8 +35,8 @@ export const useStyles = createUseStyles({
       paddingLeft: '20px',
       cursor: 'pointer',
       '&:hover': {
-        background: '#F0FFF8'
-      }
+        background: '#F0FFF8',
+      },
     },
   },
 

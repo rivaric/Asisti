@@ -4,9 +4,14 @@ import { BrowserRouter } from 'react-router-dom'
 
 export const RouterProvider = ({ children }: { children: ReactNode }) => (
   <BrowserRouter>
-    <Suspense fallback={
-    <Center h="100vh">
-      <Loader color='teal' size={48} />
-    </Center>}>{children}</Suspense>
+    <Suspense
+      fallback={
+        <Center h="100vh">
+          <Loader color="teal" size={48} />
+        </Center>
+      }
+    >
+      {children}
+    </Suspense>
   </BrowserRouter>
 )

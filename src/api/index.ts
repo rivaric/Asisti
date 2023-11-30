@@ -1,4 +1,6 @@
 export { getHistory } from './getHistory'
 export { getExercises } from './getExercises'
 export { completeExercise } from './completeExercise'
+export { login } from './login'
+export { getAllExercises } from './getAllExercises'
 export { $api } from './axios'

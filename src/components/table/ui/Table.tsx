@@ -6,56 +6,21 @@ import { Body } from './Body'
 import { useEffect, useState } from 'react'
 import { getExercises, getHistory } from '../../../api'
 import { Train } from '../../../types/Train'
-
-const mock = [
-  {
-    name: 'Тренировка для рук',
-    done_repeats: '50%',
-    time: '20 мин',
-    created_at: '12.11.2023'
-  },
-  {
-    name: 'Тренировка для ног',
-    done_repeats: '30%',
-    time: '20 мин',
-    created_at: '12.11.2023'
-  },
-  {
-    name: 'Тренировка для рук',
-    done_repeats: '50%',
-    time: '10 мин',
-    created_at: '02.11.2023'
-  },
-  {
-    name: 'Тренировка для лица',
-    done_repeats: '10%',
-    time: '30 мин',
-    created_at: '16.11.2023'
-  },
-  {
-    name: 'Тренировка для костей',
-    done_repeats: '50%',
-    time: '20 мин',
-    created_at: '12.11.2023'
-  },
-  {
-    name: 'Тренировка для рук',
-    done_repeats: '40%',
-    time: '15 мин',
-    created_at: '10.11.2023'
-  },
-]
+import { useNavigate } from 'react-router-dom'
 
 export const HistoryTable = () => {
   const [data, setData] = useState<Train[]>([])
-  const { table } = useInitialTable(mock)
+  const { table } = useInitialTable(data)
   const { classes } = useTableStyles()
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   getExercises()
-  //     .then(({ data }) => setData(data))
-      
-  // }, [])
+  const access_token = localStorage.getItem('access_token')
+  if (!access_token) navigate('/login')
+
+  useEffect(() => {
+    const access_token = localStorage.getItem('access_token')
+    getHistory(access_token!).then(({ data }) => setData(data))
+  }, [])
 
   return (
     <Skeleton visible={false} className={classes.container}>

@@ -11,7 +11,7 @@ export default function Statistics() {
   const classes = useStyles()
 
   const [data, setData] = useState<Exercise[]>([])
-  
+
   useEffect(() => {
     getExercises().then(({ data: fetchedData }) => setData(fetchedData))
   }, [])

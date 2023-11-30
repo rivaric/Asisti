@@ -7,7 +7,7 @@ interface CardProps {
   verbose_name: string
 }
 
-export function Card({id, name, verbose_name}: CardProps) {
+export function Card({ id, name, verbose_name }: CardProps) {
   const classes = useStyles()
   const navigate = useNavigate()
   return (

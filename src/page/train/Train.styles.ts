@@ -3,16 +3,15 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
   container: {
     display: 'flex',
+    position: 'relative',
   },
   train: {
     padding: '30px',
     background: '#f3f3f3',
-    height: '100vh',
+    width: '100%',
   },
 
   windowWebCamera: {
-    width: '1018px',
-    height: '562px',
     background: '#fff',
     borderRadius: '10px',
     marginBottom: '30px',
