@@ -8,6 +8,7 @@ const Statistics = lazy(() => import('../page/statistics/Statistics'))
 const Train = lazy(() => import('../page/train/Train'))
 const Trains = lazy(() => import('../page/trains/Trains'))
 const History = lazy(() => import('../page/history/History'))
+const Feedback = lazy(() => import('../page/feedback/Feedback'))
 
 export default function App() {
   return (
@@ -43,6 +44,14 @@ export default function App() {
           element={
             <CheckAuth>
               <History />
+            </CheckAuth>
+          }
+        />
+        <Route
+          path="/feedback"
+          element={
+            <CheckAuth>
+              <Feedback />
             </CheckAuth>
           }
         />
