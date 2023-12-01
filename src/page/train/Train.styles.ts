@@ -34,7 +34,7 @@ export const useStyles = createUseStyles({
     padding: '15px 20px',
     background: '#fff',
     minHeight: '100%',
-    flexGrow: '1'
+    flexGrow: '1',
   },
 
   title: {
@@ -63,7 +63,7 @@ export const useStyles = createUseStyles({
     borderRadius: '10px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
 
   progressText: {

@@ -21,8 +21,13 @@ export default function Statistics() {
       <Root />
       <div className={classes.statistic}>
         <div className={classes.wrapper}>
-          <TodayInfo data={data} />
-          <HistoryCard exercise={data[0]} />
+          <div style={{ width: '70%', height: '100%' }}>
+            <TodayInfo data={data} />
+          </div>
+
+          <div style={{ width: '30%', height: '100%' }}>
+            <HistoryCard exercise={data[0]} />
+          </div>
         </div>
         <ScheduledWorkouts data={data} />
       </div>

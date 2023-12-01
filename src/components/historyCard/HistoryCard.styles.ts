@@ -8,7 +8,8 @@ export const useStyles = createUseStyles({
     width: '100%',
     background: '#F2F3F4',
     borderRadius: '10px',
-    padding: '10px',
+    padding: 'calc(10px + 1vw)',
+    height: '90%',
   },
 
   title: {
@@ -29,7 +30,7 @@ export const useStyles = createUseStyles({
     flexDirection: 'column',
     justifyContent: 'space-between',
     cursor: 'pointer',
-    width: '80%'
+    width: '80%',
   },
 
   counter: {
@@ -50,6 +51,6 @@ export const useStyles = createUseStyles({
     color: '#95BF7B',
     fontSize: 'clamp(0.75rem, 0.375rem + 0.469vw, 1.125rem)',
     cursor: 'pointer',
-    gap: '10px'
+    gap: '10px',
   },
 })

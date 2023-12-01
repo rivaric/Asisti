@@ -15,7 +15,6 @@ export const useStyles = createUseStyles({
   wrapper: {
     display: 'flex',
     gap: '25px',
-    marginBottom: '25px',
   },
 
   scheduledWorkouts: {},

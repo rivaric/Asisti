@@ -42,7 +42,7 @@ export default function Train() {
       setRepeat(0, fetchedData.exercises[0].repeats)
     })
   }, [navigate, setExercises, setRepeat])
-
+  console.log(exercises.require, exercises.done)
   return (
     <div className={classes.container}>
       <Root />
@@ -72,10 +72,7 @@ export default function Train() {
               <div className={classes.diagram}>
                 <DoughnutChart chartData={exercises} width={82} height={82} />
                 <div className={classes.progressText}>
-                  Осталось{' '}
-                  {exercises.require - exercises.done >= 0
-                    ? exercises.require - exercises.done + 1
-                    : 0}{' '}
+                  Осталось {exercises.require >= 0 ? exercises.require : 0}{' '}
                   упражнений
                 </div>
               </div>

@@ -17,7 +17,10 @@ export const useInitialColumns = () =>
         header: () => 'Прогресс',
         cell: ({ row }) => (
           <Text>
-            {row.original.repeats ? (row.original.done_repeats * 100) / row.original.repeats : 100}%
+            {row.original.repeats
+              ? (row.original.done_repeats * 100) / row.original.repeats
+              : 100}
+            %
           </Text>
         ),
       },

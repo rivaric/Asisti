@@ -28,7 +28,6 @@ export const useStyles = createUseStyles({
     color: '#000',
     textAlign: 'center',
     marginBottom: '20px',
-    
   },
 
   ok: {

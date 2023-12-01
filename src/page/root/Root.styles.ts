@@ -7,7 +7,7 @@ export const useStyles = createUseStyles({
 
   navbar: {
     minWidth: '200px',
-    height: '100vh',
+    height: '100%',
     backgroundColor: '#D9F0E5',
     display: 'flex',
     flexDirection: 'column',

@@ -7,6 +7,7 @@ export const useStyles = createUseStyles(() => {
       borderRadius: '10px',
       background: '#F2F3F4',
       padding: '20px 25px',
+      height: '90%',
     },
 
     title: {
@@ -24,9 +25,8 @@ export const useStyles = createUseStyles(() => {
       textAlign: 'center',
       background: '#fff',
       borderRadius: '10px',
-      paddingBottom: '30px',
-      padding: '30px 45px',
-      height: '100%',
+      padding: '10px',
+      height: 'calc(120px + 0.5vh)',
     },
 
     name: {
@@ -77,7 +77,7 @@ export const useStyles = createUseStyles(() => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
-      padding: '25px 20px',
+      height: '87%',
     },
 
     motivationText: {
