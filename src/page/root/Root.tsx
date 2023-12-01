@@ -42,7 +42,10 @@ export function Root() {
               <History />
               История
             </li>
-            <li>
+            <li
+              className={pathname === '/feedback' ? classes.active : ''}
+              onClick={() => navigate('/feedback')}
+            >
               <Connection />
               Обратная связь
             </li>
