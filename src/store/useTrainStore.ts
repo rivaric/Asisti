@@ -1,28 +1,24 @@
 import { create } from 'zustand'
 
 interface useTrainStore {
-  repeat: {
-    done: number
-    require: number
-  }
+  repeat: number
   exercises: {
     done: number
     require: number
   }
-  setRepeat: (done: number, require: number) => void
+  setRepeat: (value: number) => void
+  addRepeat: () => void
   setExercises: (done: number, require: number) => void
 }
 
 export const useTrainStore = create<useTrainStore>((set) => ({
-  repeat: {
-    done: 0,
-    require: 0,
-  },
+  repeat: 0,
   exercises: {
     done: 0,
     require: 0,
   },
-  setRepeat: (done, require) => set(() => ({ repeat: { done, require } })),
+  setRepeat: (repeat) => set(() => ({ repeat })),
+  addRepeat: () => set((prevState) => ({ repeat: prevState.repeat + 1 })),
   setExercises: (done, require) =>
     set(() => ({ exercises: { done, require } })),
 }))

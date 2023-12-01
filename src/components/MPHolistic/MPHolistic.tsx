@@ -1,8 +1,7 @@
 /* eslint-disable */
-// @ts-nocheck
-'use client'
+// @ts-ignore
 
-import { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import {
   Holistic,
@@ -11,24 +10,34 @@ import {
   POSE_LANDMARKS_RIGHT,
   POSE_CONNECTIONS,
   HAND_CONNECTIONS,
-} from '@mediapipe/holistic/'
-import { drawConnectors, drawLandmarks, lerp } from '@mediapipe/drawing_utils/'
-import { Camera } from '@mediapipe/camera_utils/'
+  FACEMESH_TESSELATION,
+  FACEMESH_RIGHT_EYE,
+  FACEMESH_RIGHT_EYEBROW,
+  FACEMESH_LEFT_EYE,
+  FACEMESH_LEFT_EYEBROW,
+  FACEMESH_FACE_OVAL,
+  FACEMESH_LIPS,
+} from '@mediapipe/holistic/holistic'
+import {
+  drawConnectors,
+  drawLandmarks,
+  lerp,
+} from '@mediapipe/drawing_utils/drawing_utils'
+import { Camera } from '@mediapipe/camera_utils/camera_utils'
 import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
 
-export const MPHolistic = () => {
-  const webcamRef = useRef(null)
-  const canvasRef = useRef(null)
-  const { recommendation } = useExerciseStore((state) => state.exercise)
+const MPHolistic = () => {
+  const { comment } = useExerciseStore((state) => state.exercise)
   const setRecommendation = useExerciseStore((state) => state.setRecommendation)
   const setComment = useExerciseStore((state) => state.setComment)
+  const addRepeat = useTrainStore((state) => state.addRepeat)
 
-  const repeat = useTrainStore((state) => state.repeat)
-  const setRepeat = useTrainStore((state) => state.setRepeat)
+  const webcamRef = useRef(null)
+  const canvasRef = useRef(null)
 
-  let stage = ''
+  let stage = null
   let lAngle = 0
   let rAngle = 0
   let lDist = 1000
@@ -41,7 +50,7 @@ export const MPHolistic = () => {
   useEffect(() => {
     const holistic = new Holistic({
       locateFile: (file) => {
-        // console.log(`${file}`);
+        console.log(`${file}`)
         return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`
       },
     })
@@ -239,9 +248,6 @@ export const MPHolistic = () => {
 
     if (results.rightHandLandmarks) {
       const rFinger = getCoords(results.rightHandLandmarks[10])
-      const lMouth = getCoords(results.poseLandmarks[POSE_LANDMARKS.LEFT_RIGHT])
-      const rMouth = getCoords(results.poseLandmarks[POSE_LANDMARKS.RIGHT_LEFT])
-      const mouth = [(lMouth[0] + rMouth[0]) / 2, (lMouth[1] + rMouth[1]) / 2]
       rDist = calcDist(mouth, rFinger)
     }
 
@@ -268,10 +274,9 @@ export const MPHolistic = () => {
     //     canvasCtx, results.faceLandmarks, FACEMESH_LIPS,
     //     { color: '#E0E0E0', lineWidth: 5 });
     // canvasCtx.restore();
-    // console.log(lAngle, rAngle)
     if (lAngle > 100 && rAngle > 100 && stage === null) {
       stage = 'Поднесите руку ко рту'
-      setComment(stage)
+      setRecommendation(stage)
     }
 
     if ((lAngle > 100 && isLeft) || (rAngle > 100 && isRight)) {
@@ -305,35 +310,28 @@ export const MPHolistic = () => {
       setRecommendation(stage)
     }
     if (counterCondition) {
-      setRepeat(repeat.done + 1, repeat.require - 1)
+      addRepeat()
     }
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center h-fit w-full">
       <div
-        className={`relative border-4 duration-300 ${
-          recommendation == '' ? 'border-blue-500' : 'border-red-500'
+        className={`relative w-[1280px] h-[720px] border-4 duration-300 ${
+          comment == '' ? 'border-blue-500' : 'border-red-500'
         }`}
       >
-        <canvas
-          ref={canvasRef}
-          className="absolute w-full"
-          style={{
-            width: '100%',
-            height: '80vh',
-            borderRadius: '10px',
-          }}
-        >
+        <canvas ref={canvasRef} className="absolute w-full h-full">
           <Webcam
             audio={false}
             mirrored={true}
             ref={webcamRef}
-            className="absolute w-full"
-            style={{ borderRadius: '10px' }}
+            className="absolute w-full h-full"
           />
         </canvas>
       </div>
     </div>
   )
 }
+
+export default MPHolistic

@@ -7,7 +7,7 @@ import { Popup } from '../../components/popup/Popup'
 import { Root } from '../root/Root'
 import { completeExercise, getAllExercises } from '../../api'
 import { Exercise } from '../../types'
-import { MPHolistic } from '../../components/MPHolistic/'
+import MPHolistic from '../../components/MPHolistic/MPHolistic'
 import { useExerciseStore, useTrainStore } from '../../store'
 import { useNavigate } from 'react-router-dom'
 
@@ -39,10 +39,9 @@ export default function Train() {
     getAllExercises().then(({ data: fetchedData }) => {
       setData(fetchedData)
       setExercises(1, fetchedData.exercises.length - 1)
-      setRepeat(0, fetchedData.exercises[0].repeats)
     })
-  }, [navigate, setExercises, setRepeat])
-  console.log(exercises.require, exercises.done)
+  }, [navigate, setExercises])
+
   return (
     <div className={classes.container}>
       <Root />
@@ -64,9 +63,16 @@ export default function Train() {
             <div className={classes.progressTitle}>Прогресс тренировки</div>
             <div className={classes.diagrams}>
               <div className={classes.diagram}>
-                <DoughnutChart chartData={repeat} width={82} height={82} />
+                <DoughnutChart
+                  chartData={{
+                    done: repeat,
+                    require: Number(data?.exercises[current].repeats) - repeat,
+                  }}
+                  width={82}
+                  height={82}
+                />
                 <div className={classes.progressText}>
-                  {repeat.done}/{repeat.require} Повторов
+                  {repeat}/{data?.exercises[current].repeats} Повторов
                 </div>
               </div>
               <div className={classes.diagram}>
@@ -91,11 +97,11 @@ export default function Train() {
                   if (current + 1 < Number(data?.exercises?.length))
                     completeExercise(
                       String(data?.exercises[current].user_exercise_id),
-                      repeat.done
+                      repeat
                     ).then(() => {
                       setCurrent(current + 1)
                       setExercises(exercises.done + 1, exercises.require - 1)
-                      setRepeat(0, Number(data?.exercises[current].repeats))
+                      setRepeat(0)
                     })
                 }}
               >
