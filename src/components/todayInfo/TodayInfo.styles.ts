@@ -3,7 +3,6 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles(() => {
   return {
     todayInfo: {
-      // width: 'max-content',
       borderRadius: '10px',
       background: '#F2F3F4',
       padding: '20px 25px',
@@ -82,7 +81,7 @@ export const useStyles = createUseStyles(() => {
 
     motivationText: {
       fontSize: 'clamp(0.75rem, 0.375rem + 0.469vw, 1.125rem)',
-      minWidth: '200px',
+      maxWidth: '200px',
     },
   }
 })

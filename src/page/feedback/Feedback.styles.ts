@@ -3,6 +3,7 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
   container: {
     display: 'flex',
+    height: '100vh',
   },
 
   feedback: {
@@ -53,11 +54,13 @@ export const useStyles = createUseStyles({
     fontSize: '10px',
     color: '#BECABC',
     right: '10px',
-    bottom: '2px',
+    bottom: '0px',
   },
 
   patient: {
     marginLeft: 'auto',
+    display: 'flex',
+    flexDirection: 'row-reverse',
   },
 
   doctor: {},
@@ -70,6 +73,7 @@ export const useStyles = createUseStyles({
     maxWidth: '360px',
     fontSize: '14px',
     lineHeight: '155%',
+    paddingBottom: '15px',
   },
 
   actions: {
@@ -84,12 +88,15 @@ export const useStyles = createUseStyles({
   },
 
   input: {
-    color: '#D0DACE',
+    color: '#000',
     flexGrow: '1',
     borderRadius: '10px',
     border: '1px solid #BECABC',
     background: '#FFF',
     padding: '10px 15px',
+    ':placeholder': {
+      color: '#D0DACE',
+    },
   },
 
   send: {

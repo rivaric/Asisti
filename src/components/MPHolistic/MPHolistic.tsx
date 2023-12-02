@@ -1,5 +1,6 @@
 /* eslint-disable */
-// @ts-ignore
+// @ts-nocheck
+'use client'
 
 import React, { useRef, useEffect, useState } from 'react'
 import Webcam from 'react-webcam'

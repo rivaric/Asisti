@@ -3,9 +3,13 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
   container: {
     display: 'flex',
+    width: '100vw',
+    height: '100vh',
   },
 
   trains: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '100%',
     height: '100%',
     padding: '30px',
@@ -43,7 +47,7 @@ export const useStyles = createUseStyles({
     padding: '30px 25px',
     borderRadius: '10px',
     flexWrap: 'wrap',
-    height: '715px',
+    height: '100%',
     overflow: 'auto',
   },
 })

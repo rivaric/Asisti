@@ -18,13 +18,13 @@ import {
   FACEMESH_LEFT_EYEBROW,
   FACEMESH_FACE_OVAL,
   FACEMESH_LIPS,
-} from '@mediapipe/holistic'
+} from '@mediapipe/holistic/holistic'
 import {
   drawConnectors,
   drawLandmarks,
   lerp,
-} from '@mediapipe/drawing_utils'
-import { Camera } from '@mediapipe/camera_utils'
+} from '@mediapipe/drawing_utils/drawing_utils'
+import { Camera } from '@mediapipe/camera_utils/camera_utils'
 import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
@@ -32,18 +32,13 @@ import { useExerciseStore, useTrainStore } from '../../store'
 const MPForehead = () => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
-  // const [text, setText] = useState('')
-  const { recommendation } = useExerciseStore((state) => state.exercise)
+
+  const { comment } = useExerciseStore((state) => state.exercise)
   const setRecommendation = useExerciseStore((state) => state.setRecommendation)
   const setComment = useExerciseStore((state) => state.setComment)
-  // const [count, setCount] = useState(0)
-  // const [suggest, setSuggest] = useState('')
+  const addRepeat = useTrainStore((state) => state.addRepeat)
 
-  const repeat = useTrainStore((state) => state.repeat)
-  const setRepeat = useTrainStore((state) => state.setRepeat)
-
-
-  let stage = ''
+  let stage = null
   let lAngle = 0
   let rAngle = 0
   let lDist = 1000
@@ -285,7 +280,7 @@ const MPForehead = () => {
     // canvasCtx.restore();
     if (lAngle > 100 && rAngle > 100 && stage === null) {
       stage = 'Поднесите руку ко лбу'
-      setComment(stage)
+      setRecommendation(stage)
     }
 
     if ((lAngle > 100 && isLeft) || (rAngle > 100 && isRight)) {
@@ -319,7 +314,7 @@ const MPForehead = () => {
       setRecommendation(stage)
     }
     if (counterCondition) {
-      setRepeat(repeat.done + 1, repeat.require - 1)
+      addRepeat()
     }
   }
 
@@ -327,20 +322,18 @@ const MPForehead = () => {
     <div className="flex flex-col items-center h-fit w-full">
       <div
         className={`relative w-[1280px] h-[720px] border-4 duration-300 ${
-          recommendation == '' ? 'border-blue-500' : 'border-red-500'
+          comment == '' ? 'border-blue-500' : 'border-red-500'
         }`}
       >
-        <Webcam
-          audio={false}
-          mirrored={true}
-          ref={webcamRef}
-          className="absolute w-full h-full"
-        />
-        <canvas ref={canvasRef} className="absolute w-full h-full"></canvas>
+        <canvas ref={canvasRef} className="absolute w-full h-full">
+          <Webcam
+            audio={false}
+            mirrored={true}
+            ref={webcamRef}
+            className="absolute w-full h-full"
+          />
+        </canvas>
       </div>
-      {/* <div>{text}</div>
-      <div>{count}</div>
-      <div>{suggest}</div> */}
     </div>
   )
 }

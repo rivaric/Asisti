@@ -18,7 +18,7 @@ export const useInitialColumns = () =>
         cell: ({ row }) => (
           <Text>
             {row.original.repeats
-              ? (row.original.done_repeats * 100) / row.original.repeats
+              ? ((row.original.done_repeats * 100) / row.original.repeats).toFixed()
               : 100}
             %
           </Text>

@@ -32,7 +32,7 @@ export function TodayInfo({ data }: { data: Exercise[] }) {
         <div className={`${classes.item} ${classes.dailyProgress}`}>
           <div className={classes.name}>Дневной прогресс</div>
           <DoughnutChart
-            chartData={{ done: 0, require: 1 }}
+            chartData={{ done: 2, require: 1 }}
             width={100}
             height={100}
           />

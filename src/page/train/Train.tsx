@@ -10,6 +10,7 @@ import { Exercise } from '../../types'
 import MPHolistic from '../../components/MPHolistic/MPHolistic'
 import { useExerciseStore, useTrainStore } from '../../store'
 import { useNavigate } from 'react-router-dom'
+import MPForehead from '../../components/MPHolistic/MPForehead'
 
 export default function Train() {
   const classes = useStyles()
@@ -35,6 +36,11 @@ export default function Train() {
     surname: string
   }>()
 
+  const ObjMP = {
+    hand_to_mouth: <MPHolistic />,
+    hand_to_forehead: <MPForehead />,
+  }
+
   useEffect(() => {
     getAllExercises().then(({ data: fetchedData }) => {
       setData(fetchedData)
@@ -48,7 +54,7 @@ export default function Train() {
       <Popup isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} />
       <div className={classes.train}>
         <div className={classes.windowWebCamera}>
-          <MPHolistic />
+          {ObjMP[data?.exercises[current].name as keyof typeof ObjMP]}
         </div>
         <div className={classes.info}>
           <div className={classes.comment}>
@@ -78,8 +84,9 @@ export default function Train() {
               <div className={classes.diagram}>
                 <DoughnutChart chartData={exercises} width={82} height={82} />
                 <div className={classes.progressText}>
-                  Осталось {exercises.require >= 0 ? exercises.require : 0}{' '}
-                  упражнений
+                  {exercises.require > 0
+                    ? `Осталось ${exercises.require} упражнений`
+                    : `Последнее упражнение`}
                 </div>
               </div>
             </div>

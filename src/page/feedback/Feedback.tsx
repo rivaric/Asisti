@@ -1,12 +1,34 @@
 import { Doctor } from '../../iconpack/Doctor'
-import { Paperclip } from '../../iconpack/Paperclip'
 import { Patient } from '../../iconpack/Patient'
+import { Paperclip } from '../../iconpack/Paperclip'
 import { Send } from '../../iconpack/Send'
+import { useMessagesStore } from '../../store'
 import { Root } from '../root/Root'
 import { useStyles } from './Feedback.styles'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { sendFeedback } from '../../api/sendFeedback'
+
+interface Inputs {
+  text: string
+}
 
 export default function Feedback() {
   const classes = useStyles()
+  const { register, handleSubmit, reset } = useForm<Inputs>({ mode: 'onBlur' })
+
+  const messages = useMessagesStore((state) => state.messages)
+  const setMessage = useMessagesStore((state) => state.setMessage)
+
+  const onSubmit: SubmitHandler<Inputs> = ({ text }) => {
+    sendFeedback(text).then(() => {
+      setMessage({
+        sender: 'patient',
+        time: new Date(),
+        text,
+      })
+      reset()
+    })
+  }
 
   return (
     <div className={classes.container}>
@@ -14,37 +36,40 @@ export default function Feedback() {
       <div className={classes.feedback}>
         <div className={classes.chatWrapper}>
           <div className={classes.chatSpace}>
-            <div className={`${classes.message} ${classes.doctor}`}>
-              <div className={classes.icon}>
-                <Doctor />
-              </div>
-              <div className={classes.text}>
-                Добрый день, Иван! Как вы себя чувствуете сегодня?
-                <div className={classes.time}>
-                  0:40
+            {messages.map(({ sender, text, time }, i) => (
+              <div
+                key={i}
+                className={`${classes.message} ${
+                  sender === 'doctor' ? classes.doctor : classes.patient
+                }`}
+              >
+                <div className={classes.icon}>
+                  {sender === 'doctor' ? <Doctor /> : <Patient />}
+                </div>
+                <div className={classes.text}>
+                  {text}
+                  <div className={classes.time}>{`${time.getHours()}:${
+                    time.getMinutes() > 10
+                      ? time.getMinutes()
+                      : `0${time.getMinutes()}`
+                  }`}</div>
                 </div>
               </div>
-            </div>
-            <div className={`${classes.message} ${classes.patient}`}>
-              <div className={classes.text}>
-                Здравствуйте, доктор. Я немного лучше с каждым днем. Координация
-                движений стала чуть лучше
-                <div className={classes.time}>
-                  0:45
-                </div>
-              </div>
-              <div className={classes.icon}>
-                <Patient />
-              </div>
-            </div>
+            ))}
           </div>
-          <div className={classes.actions}>
-            <Paperclip />
-            <input className={classes.input} placeholder='Напишите сообщение...'/>
-            <div className={classes.send}>
-              <Send />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={classes.actions}>
+              <Paperclip />
+              <input
+                {...register('text', { required: true })}
+                className={classes.input}
+                placeholder="Напишите сообщение..."
+              />
+              <button className={classes.send}>
+                <Send />
+              </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

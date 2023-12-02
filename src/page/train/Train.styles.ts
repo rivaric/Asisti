@@ -4,6 +4,8 @@ export const useStyles = createUseStyles({
   container: {
     display: 'flex',
     position: 'relative',
+    height: '100vh',
+    width: '100vw',
   },
   train: {
     display: 'flex',
@@ -11,6 +13,7 @@ export const useStyles = createUseStyles({
     padding: '30px',
     background: '#f3f3f3',
     width: '100%',
+    height: '100%'
   },
 
   windowWebCamera: {

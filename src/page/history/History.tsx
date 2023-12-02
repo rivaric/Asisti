@@ -6,7 +6,7 @@ export default function History() {
   return (
     <Flex bg="#F2F3F4" h="100vh">
       <Root />
-      <Box w="100%" h="100%" m="30px 30px 0 30px">
+      <Box w="100%" m="30px 30px 0 30px">
         <HistoryTable />
       </Box>
     </Flex>

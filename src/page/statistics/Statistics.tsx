@@ -13,7 +13,7 @@ export default function Statistics() {
   const [data, setData] = useState<Exercise[]>([])
 
   useEffect(() => {
-    getExercises().then(({ data: fetchedData }) => setData(fetchedData))
+    getExercises().then(({ data: fetchedData }) => setData(fetchedData.exercises))
   }, [])
 
   return (
@@ -24,7 +24,6 @@ export default function Statistics() {
           <div style={{ width: '70%', height: '100%' }}>
             <TodayInfo data={data} />
           </div>
-
           <div style={{ width: '30%', height: '100%' }}>
             <HistoryCard exercise={data[0]} />
           </div>
