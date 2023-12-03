@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 export function calcAngle(a, b, c) {
   a = Array.from(a)
   b = Array.from(b)

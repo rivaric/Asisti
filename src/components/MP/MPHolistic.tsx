@@ -29,7 +29,7 @@ import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
 
-const MPHolistic = () => {
+export const MPHolistic = () => {
   const { comment } = useExerciseStore((state) => state.exercise)
   const setRecommendation = useExerciseStore((state) => state.setRecommendation)
   const setComment = useExerciseStore((state) => state.setComment)
@@ -334,5 +334,3 @@ const MPHolistic = () => {
     </div>
   )
 }
-
-export default MPHolistic

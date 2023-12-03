@@ -3,9 +3,9 @@ import { useStyles } from './Card.styles'
 import exercise from '../../assets/exercise.jpg'
 
 interface CardProps {
-  id: string
-  name: string
-  verbose_name: string
+  id?: string
+  name?: string
+  verbose_name?: string
   img?: string
 }
 

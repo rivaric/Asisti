@@ -7,10 +7,10 @@ import { Popup } from '../../components/popup/Popup'
 import { Root } from '../root/Root'
 import { completeExercise, getAllExercises } from '../../api'
 import { Exercise } from '../../types'
-import MPHolistic from '../../components/MPHolistic/MPHolistic'
+import { MPHolistic } from '../../components/MP/MPHolistic'
 import { useExerciseStore, useTrainStore } from '../../store'
 import { useNavigate } from 'react-router-dom'
-import MPForehead from '../../components/MPHolistic/MPForehead'
+import MPForehead from '../../components/MP/MPForehead'
 
 export default function Train() {
   const classes = useStyles()

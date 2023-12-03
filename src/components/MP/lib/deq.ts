@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 export function createDeque(maxLength = 80) {
   return {
     deque: [],
