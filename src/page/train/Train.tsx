@@ -7,10 +7,14 @@ import { Popup } from '../../components/popup/Popup'
 import { Root } from '../root/Root'
 import { completeExercise, getAllExercises } from '../../api'
 import { Exercise } from '../../types'
-import { MPHolistic } from '../../components/MP/MPHolistic'
+import {
+  MPHolistic,
+  MPForehead,
+  MPBackhead,
+  MPTopHead,
+} from '../../components/MP/index'
 import { useExerciseStore, useTrainStore } from '../../store'
 import { useNavigate } from 'react-router-dom'
-import MPForehead from '../../components/MP/MPForehead'
 
 export default function Train() {
   const classes = useStyles()
@@ -39,6 +43,8 @@ export default function Train() {
   const ObjMP = {
     hand_to_mouth: <MPHolistic />,
     hand_to_forehead: <MPForehead />,
+    hand_to_back_head: <MPBackhead />,
+    hand_to_top_head: <MPTopHead />,
   }
 
   useEffect(() => {
@@ -101,6 +107,8 @@ export default function Train() {
               <div
                 className={classes.nextText}
                 onClick={() => {
+                  console.log(1);
+                  
                   if (current + 1 < Number(data?.exercises?.length))
                     completeExercise(
                       String(data?.exercises[current].user_exercise_id),

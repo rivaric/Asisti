@@ -29,7 +29,7 @@ import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
 
-export const MPForehead = () => {
+export const MPBackhead = () => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
 
@@ -122,19 +122,21 @@ export const MPForehead = () => {
     const canvasElement = canvasRef.current
     const canvasCtx = canvasElement.getContext('2d')
 
-    let lShoulder
-    let lElbow
-    let lWrist
-    let lEar
+    let lShoulder = [1000, 1000]
+    let lElbow = [1000, 1000]
+    let lWrist = [1000, 1000]
+    let lEar = [1000, 1000]
 
-    let rShoulder
-    let rElbow
-    let rWrist
-    let rEar
-    let mouth
+    let rShoulder = [1000, 1000]
+    let rElbow = [1000, 1000]
+    let rWrist = [1000, 1000]
+    let rEar = [1000, 1000]
+    let mouth = [1000, 1000]
 
     let suggestedText
     let counterCondition = false
+
+    let forehead = [1000, 1000]
     // removeLandmarks(results);
     canvasCtx.save()
     canvasCtx.clearRect(0, 0, videoWidth, videoHeight)
@@ -189,9 +191,9 @@ export const MPForehead = () => {
       const diffsh = Math.abs(l_s_c - r_s_c)
       const diffear = Math.abs(l_e_c - r_e_c)
 
-      suggestedText = makeSuggest(diffl, diffr, diffsh, diffear)
+      suggestedText = makeSuggest(diffl - 0.1, diffr - 0.1, diffsh, diffear)
 
-      if (suggestedText != '' && stage == 'Поднесите руку ко лбу') {
+      if (suggestedText != '' && stage == 'Поднесите руку к затылку') {
         setComment(suggestedText)
       }
 
@@ -216,6 +218,7 @@ export const MPForehead = () => {
         { visibilityMin: 0.65, color: 'white', fillColor: 'rgb(0,217,231)' }
       )
     }
+
     // Hands...
     drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, {
       color: 'white',
@@ -242,18 +245,13 @@ export const MPForehead = () => {
         return lerp(data.from.z, -0.15, 0.1, 10, 1)
       },
     })
+
     if (results.leftHandLandmarks && results.faceLandmarks) {
-      const forehead = getCoords(results.faceLandmarks[151])
-      const lFinger = getCoords(results.leftHandLandmarks[10])
-      lDist = calcDist(forehead, lFinger)
-      console.log(lDist)
+      forehead = getCoords(results.faceLandmarks[151])
     }
 
     if (results.rightHandLandmarks && results.faceLandmarks) {
-      const forehead = getCoords(results.faceLandmarks[151])
-      const rFinger = getCoords(results.rightHandLandmarks[10])
-      rDist = calcDist(forehead, rFinger)
-      console.log(rDist)
+      forehead = getCoords(results.faceLandmarks[151])
     }
     // Face...
     // drawConnectors(
@@ -279,22 +277,30 @@ export const MPForehead = () => {
     //     { color: '#E0E0E0', lineWidth: 5 });
     // canvasCtx.restore();
     if (lAngle > 100 && rAngle > 100 && stage === null) {
-      stage = 'Поднесите руку ко лбу'
+      stage = 'Поднесите руку к затылку'
       setRecommendation(stage)
     }
 
-    if ((lAngle > 100 && isLeft) || (rAngle > 100 && isRight)) {
+    if (
+      (lAngle > 100 && lShoulder[1] < lElbow[1] && isLeft) ||
+      (rAngle > 100 && rShoulder[1] < rElbow[1] && isRight)
+    ) {
       if (stage == 'Опустите руку') {
         lS.clear()
         rS.clear()
       }
       isLeft = false
       isRight = false
-      stage = 'Поднесите руку ко лбу'
+      stage = 'Поднесите руку к затылку'
       setRecommendation(stage)
     }
 
-    if (lDist < 0.06 && lAngle < 50 && stage == 'Поднесите руку ко лбу') {
+    if (
+      lWrist[1] > forehead[1] &&
+      lElbow[1] < lShoulder[1] &&
+      lAngle < 90 &&
+      stage == 'Поднесите руку к затылку'
+    ) {
       if (suggestedText == '') {
         setComment('')
         counterCondition = true
@@ -304,7 +310,12 @@ export const MPForehead = () => {
       setRecommendation(stage)
     }
 
-    if (rDist < 0.06 && rAngle < 50 && stage == 'Поднесите руку ко лбу') {
+    if (
+      rWrist[1] > forehead[1] &&
+      rElbow[1] < rShoulder[1] &&
+      rAngle < 90 &&
+      stage == 'Поднесите руку к затылку'
+    ) {
       if (suggestedText == '') {
         setComment('')
         counterCondition = true
@@ -338,4 +349,4 @@ export const MPForehead = () => {
   )
 }
 
-export default MPForehead
+export default MPBackhead
