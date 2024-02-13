@@ -1,17 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import eslint from 'vite-plugin-eslint'
+import { mediapipe } from 'vite-plugin-mediapipe'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), eslint()],
+  plugins: [react(), eslint(), mediapipe()],
   base: '/',
   server: {
     port: 3000,
-    open: 'http://127.0.0.1:3000/login',
+    open: 'http://localhost:3000/login',
     proxy: {
       '/api/v1': {
-        target: 'http://127.0.0.1:8000/api/v1',
+        target: 'http://www.asisti.tech/api/v1/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/v1/, ''),
       },
