@@ -12,7 +12,7 @@ export default defineConfig({
     open: 'http://localhost:3000/login',
     proxy: {
       '/api/v1': {
-        target: 'http://www.asisti.tech/api/v1/',
+        target: 'http://www.asisti.tech/api/v1',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/v1/, ''),
       },
