@@ -15,6 +15,8 @@ import {
 } from '../../components/MP/index'
 import { useExerciseStore, useTrainStore } from '../../store'
 import { useNavigate } from 'react-router-dom'
+import { Timer } from '../../components/timer/Timer'
+import { Loading } from '../../components/loading/Loading'
 
 export default function Train() {
   const classes = useStyles()
@@ -49,10 +51,24 @@ export default function Train() {
 
   useEffect(() => {
     getAllExercises().then(({ data: fetchedData }) => {
+      console.log(fetchedData)
       setData(fetchedData)
       setExercises(1, fetchedData.exercises.length - 1)
     })
-  }, [navigate, setExercises])
+  }, [setExercises])
+
+  const SwitchTrain = () => {
+    console.log(1)
+    if (current + 1 < Number(data?.exercises?.length))
+      completeExercise(
+        String(data?.exercises[current]?.user_exercise_id),
+        repeat
+      ).then(() => {
+        setCurrent(current + 1)
+        setExercises(exercises?.done + 1, exercises?.require - 1)
+        setRepeat(0)
+      })
+  }
 
   return (
     <div className={classes.container}>
@@ -60,14 +76,18 @@ export default function Train() {
       <Popup isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} />
       <div className={classes.train}>
         <div className={classes.windowWebCamera}>
-          {ObjMP[data?.exercises[current].name as keyof typeof ObjMP]}
+          {ObjMP[data?.exercises[current]?.name as keyof typeof ObjMP] || (
+            <Loading />
+          )}
         </div>
         <div className={classes.info}>
           <div className={classes.comment}>
             <div className={classes.title}>Комментарии по выполнению:</div>
             <div className={classes.text}>
-              {recommendation}
-              <p style={{ color: '#BC5959', marginTop: '20px' }}>{comment}</p>
+              {recommendation || ''}
+              <p style={{ color: '#BC5959', marginTop: '10px' }}>
+                {comment || ''}
+              </p>
             </div>
           </div>
 
@@ -78,20 +98,21 @@ export default function Train() {
                 <DoughnutChart
                   chartData={{
                     done: repeat,
-                    require: Number(data?.exercises[current].repeats) - repeat,
+                    require: Number(data?.exercises[current]?.repeats) - repeat,
                   }}
                   width={82}
                   height={82}
                 />
                 <div className={classes.progressText}>
-                  {repeat}/{data?.exercises[current].repeats} Повторов
+                  {repeat || 0}/{data?.exercises[current]?.repeats || 0}{' '}
+                  Повторов
                 </div>
               </div>
               <div className={classes.diagram}>
                 <DoughnutChart chartData={exercises} width={82} height={82} />
                 <div className={classes.progressText}>
-                  {exercises.require > 0
-                    ? `Осталось ${exercises.require} упражнений`
+                  {exercises?.require || 0 > 0
+                    ? `Осталось ${exercises?.require || 0} упражнений`
                     : `Последнее упражнение`}
                 </div>
               </div>
@@ -99,27 +120,17 @@ export default function Train() {
           </div>
           <div className={classes.buttonAndTimer}>
             <div className={classes.timer}>
-              <Clock />
-              12:00
+              <div className={classes.clock}>
+                <Clock />
+              </div>
+
+              {!isOpenPopup && (
+                <Timer sec={60 * 12} completionTimer={() => SwitchTrain()} />
+              )}
             </div>
 
             <button className={classes.next}>
-              <div
-                className={classes.nextText}
-                onClick={() => {
-                  console.log(1);
-                  
-                  if (current + 1 < Number(data?.exercises?.length))
-                    completeExercise(
-                      String(data?.exercises[current].user_exercise_id),
-                      repeat
-                    ).then(() => {
-                      setCurrent(current + 1)
-                      setExercises(exercises.done + 1, exercises.require - 1)
-                      setRepeat(0)
-                    })
-                }}
-              >
+              <div className={classes.nextText} onClick={() => SwitchTrain()}>
                 Следующее упражнение
               </div>
               <ArrowLaft />

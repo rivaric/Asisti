@@ -22,7 +22,7 @@ export function DoughnutChart({
     <div className={classes.chart} style={{ width: width, height: height }}>
       <div className={classes.pracent}>
         {(
-          (chartData.done / (chartData.require + chartData.done)) *
+          (chartData.done / (chartData.require + chartData.done || 1) || 0) *
           100
         ).toFixed()}
         %

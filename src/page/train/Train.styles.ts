@@ -13,7 +13,7 @@ export const useStyles = createUseStyles({
     padding: '30px',
     background: '#f3f3f3',
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
 
   windowWebCamera: {
@@ -42,9 +42,9 @@ export const useStyles = createUseStyles({
 
   title: {
     color: '#000',
-    fontSize: 'clamp(1rem, 0rem + 1.25vw, 2rem)',
+    fontSize: 'clamp(0.7rem, 0rem + 1.25vw, 1.5rem)',
     fontWeight: '500',
-    marginBottom: '20px',
+    marginBottom: '10px',
   },
 
   progressTitle: {
@@ -54,7 +54,7 @@ export const useStyles = createUseStyles({
   },
 
   text: {
-    fontSize: 'clamp(0.75rem, 0.375rem + 0.469vw, 1.125rem)',
+    fontSize: 'clamp(2.5rem, 0rem + 1.25vw, 2.5rem)',
     fontWeight: '400',
   },
 
@@ -101,10 +101,12 @@ export const useStyles = createUseStyles({
     borderRadius: '10px',
     display: 'flex',
     background: '#fff',
-    justifyContent: 'center',
     alignItems: 'center',
     fontSize: 'clamp(2rem, 0rem + 1.25vw, 3rem)',
-    gap: '10px',
+  },
+
+  clock: {
+    padding: '0 20px',
   },
 
   next: {
