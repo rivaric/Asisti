@@ -17,6 +17,7 @@ import { useExerciseStore, useTrainStore } from '../../store'
 import { useNavigate } from 'react-router-dom'
 import { Timer } from '../../components/timer/Timer'
 import { Loading } from '../../components/loading/Loading'
+import train from '../../assets/train.mp3'
 
 export default function Train() {
   const classes = useStyles()
@@ -57,6 +58,13 @@ export default function Train() {
     })
   }, [setExercises])
 
+  useEffect(() => {
+    if (repeat) {
+      const audio = new Audio(train) // Создаем новый экземпляр аудио
+      audio.play() // Воспроизводим звук
+    }
+  }, [repeat])
+
   const SwitchTrain = () => {
     console.log(1)
     if (current + 1 < Number(data?.exercises?.length))
@@ -76,9 +84,9 @@ export default function Train() {
       <Popup isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} />
       <div className={classes.train}>
         <div className={classes.windowWebCamera}>
-          {ObjMP[data?.exercises[current]?.name as keyof typeof ObjMP] || (
-            <Loading />
-          )}
+          <Loading>
+            <MPHolistic />
+          </Loading>
         </div>
         <div className={classes.info}>
           <div className={classes.comment}>
@@ -125,7 +133,7 @@ export default function Train() {
               </div>
 
               {!isOpenPopup && (
-                <Timer sec={60 * 12} completionTimer={() => SwitchTrain()} />
+                <Timer sec={60} completionTimer={() => SwitchTrain()} />
               )}
             </div>
 

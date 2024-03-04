@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { RouterProvider } from './lib/RouterProvider'
 import { lazy } from 'react'
 import { CheckAuth } from '../HOC/CheckAuth'
+import { Loading } from '../components/loading/Loading'
 
 const Login = lazy(() => import('../page/login/Login'))
 const Statistics = lazy(() => import('../page/statistics/Statistics'))
@@ -14,6 +15,7 @@ export default function App() {
   return (
     <RouterProvider>
       <Routes>
+        <Route path="/*" element={<Loading />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/statistics"

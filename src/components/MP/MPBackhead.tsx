@@ -71,8 +71,8 @@ export const MPBackhead = () => {
         onFrame: async () => {
           await holistic.send({ image: webcamRef.current.video })
         },
-        width: 1280,
-        height: 720,
+        width: window.innerWidth * 0.7,
+        height: window.innerHeight * 0.6,
       })
       camera.start()
     }

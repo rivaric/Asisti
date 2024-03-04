@@ -33,6 +33,7 @@ export const useStyles = createUseStyles({
   },
 
   comment: {
+    width: '50vw',
     borderRadius: '10px',
     padding: '15px 20px',
     background: '#fff',

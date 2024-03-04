@@ -71,8 +71,8 @@ export const MPHolistic = () => {
         onFrame: async () => {
           await holistic.send({ image: webcamRef.current.video })
         },
-        width: 1280,
-        height: 720,
+        width: window.innerWidth * 0.7,
+        height: window.innerHeight * 0.6,
       })
       camera.start()
     }
@@ -323,12 +323,14 @@ export const MPHolistic = () => {
         }`}
       >
         <canvas ref={canvasRef} className="absolute w-full h-full">
-          <Webcam
-            audio={false}
-            mirrored={true}
-            ref={webcamRef}
-            className="absolute w-full h-full"
-          />
+          {(
+            <Webcam
+              audio={false}
+              mirrored={true}
+              ref={webcamRef}
+              className="absolute w-full h-full"
+            />
+          ) || <Loading />}
         </canvas>
       </div>
     </div>
