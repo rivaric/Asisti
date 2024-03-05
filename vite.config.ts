@@ -9,7 +9,7 @@ export default defineConfig({
   base: '/',
   server: {
     port: 3000,
-    open: 'http://localhost:3000/login',
+    open: 'http://localhost:3000/',
     proxy: {
       '/api/v1': {
         target: 'http://localhost:8000/api/v1',

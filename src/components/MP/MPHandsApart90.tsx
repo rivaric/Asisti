@@ -34,10 +34,8 @@ import {
 } from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
-import { MPProps } from './types'
-import { Loading } from '../loading/Loading'
 
-export const MPHandsApart90 = ({ isLoading, setIsLoading }: MPProps) => {
+export const MPHandsApart90 = () => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
   const { comment } = useExerciseStore((state) => state.exercise)
@@ -85,8 +83,6 @@ export const MPHandsApart90 = ({ isLoading, setIsLoading }: MPProps) => {
       })
       camera.start()
     }
-
-    setIsLoading(true)
   }, [])
 
   const removeElements = (landmarks, elements) => {
@@ -303,10 +299,6 @@ export const MPHandsApart90 = ({ isLoading, setIsLoading }: MPProps) => {
             audio={false}
             mirrored={true}
             ref={webcamRef}
-            onUserMedia={(value) => {
-              setIsLoading(false)
-              console.log(value)
-            }}
             className="absolute w-full h-full"
           />
         </canvas>

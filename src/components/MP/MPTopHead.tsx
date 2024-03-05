@@ -28,10 +28,8 @@ import { Camera } from '@mediapipe/camera_utils/camera_utils'
 import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
-import { MPProps } from './types'
-import { Loading } from '../loading/Loading'
 
-export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
+export const MPTopHead = () => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
 
@@ -78,8 +76,6 @@ export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
       })
       camera.start()
     }
-
-    setIsLoading(true)
   }, [])
 
   const removeElements = (landmarks, elements) => {
@@ -357,10 +353,6 @@ export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
             audio={false}
             mirrored={true}
             ref={webcamRef}
-            onUserMedia={(value) => {
-              setIsLoading(false)
-              console.log(value)
-            }}
             className="absolute w-full h-full"
           />
         </canvas>

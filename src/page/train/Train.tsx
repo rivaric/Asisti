@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { DoughnutChart } from '../../components/doughnutChart/DoughnutChart'
 import { ArrowLaft } from '../../iconpack/ArrowLaft'
 import { useStyles } from './Train.styles'
@@ -29,15 +29,17 @@ export default function Train() {
   const audio = useRef(new Audio(train))
 
   useEffect(() => {
-    audio.current.onended = () => {
-      audio.current.currentTime = 0
+    const currentAudio = audio.current
+
+    currentAudio.onended = () => {
+      currentAudio.currentTime = 0
     }
 
     return () => {
-      audio.current.pause()
-      audio.current.onended = () => {}
+      currentAudio.pause()
+      currentAudio.onended = () => {}
     }
-  }, [audio])
+  }, [])
 
   const { recommendation, comment } = useExerciseStore(
     (state) => state.exercise
@@ -47,7 +49,6 @@ export default function Train() {
   const setRepeat = useTrainStore((state) => state.setRepeat)
   const setExercises = useTrainStore((state) => state.setExercises)
 
-  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isOpenPopupStart, setIsOpenPopupStart] = useState(true)
   const [isOpenPopupBreak, setIsOpenPopupBreak] = useState(false)
   const [current, setCurrent] = useState(0)
@@ -62,27 +63,13 @@ export default function Train() {
   }>()
 
   const ObjMP = {
-    hand_to_mouth: (
-      <MPHolistic isLoading={isLoading} setIsLoading={setIsLoading} />
-    ),
-    hand_to_forehead: (
-      <MPForehead isLoading={isLoading} setIsLoading={setIsLoading} />
-    ),
-    hand_to_back_head: (
-      <MPBackhead isLoading={isLoading} setIsLoading={setIsLoading} />
-    ),
-    hand_to_top_head: (
-      <MPTopHead isLoading={isLoading} setIsLoading={setIsLoading} />
-    ),
-    hand_apart_90: (
-      <MPHandsApart90 isLoading={isLoading} setIsLoading={setIsLoading} />
-    ),
-    hand_apart_120: (
-      <MPHandsApart120 isLoading={isLoading} setIsLoading={setIsLoading} />
-    ),
-    hand_apart_180: (
-      <MPHandsApart180 isLoading={isLoading} setIsLoading={setIsLoading} />
-    ),
+    hand_to_mouth: <MPHolistic />,
+    hand_to_forehead: <MPForehead />,
+    hand_to_back_head: <MPBackhead />,
+    hand_to_top_head: <MPTopHead />,
+    hand_apart_90: <MPHandsApart90 />,
+    hand_apart_120: <MPHandsApart120 />,
+    hand_apart_180: <MPHandsApart180 />,
   }
 
   useEffect(() => {
@@ -99,23 +86,30 @@ export default function Train() {
     }
   }, [audio, repeat])
 
+  const SwitchTrain = useCallback(() => {
+    setIsOpenPopupBreak(true)
+    completeExercise(
+      String(data?.exercises[current]?.user_exercise_id),
+      repeat
+    ).then(() => {
+      setCurrent(current + 1)
+      setExercises(exercises?.done + 1, exercises?.require - 1)
+      setRepeat(0)
+    })
+  }, [
+    current,
+    data?.exercises,
+    exercises?.done,
+    exercises?.require,
+    repeat,
+    setExercises,
+    setCurrent,
+    setRepeat,
+  ])
+
   useEffect(() => {
     if (repeat === data?.exercises[current]?.repeats) SwitchTrain()
-  }, [repeat])
-
-  const SwitchTrain = () => {
-    if (current + 1 < Number(data?.exercises?.length))
-      completeExercise(
-        String(data?.exercises[current]?.user_exercise_id),
-        repeat
-      ).then(() => {
-        if (current + 1 !== Number(data?.exercises?.length) - 1)
-          setIsOpenPopupBreak(true)
-        setCurrent(current + 1)
-        setExercises(exercises?.done + 1, exercises?.require - 1)
-        setRepeat(0)
-      })
-  }
+  }, [repeat, SwitchTrain, data?.exercises, current])
 
   return (
     <div className={classes.container}>
@@ -136,13 +130,8 @@ export default function Train() {
       />
       <div className={classes.train}>
         <div className={classes.windowWebCamera}>
-          {ObjMP[data?.exercises[current]?.name as keyof typeof ObjMP]}
-          {isLoading ? (
-            <div className={classes.loader}>
-              <Loading />
-            </div>
-          ) : (
-            ''
+          {ObjMP[data?.exercises[current]?.name as keyof typeof ObjMP] || (
+            <Loading />
           )}
         </div>
         <div className={classes.info}>

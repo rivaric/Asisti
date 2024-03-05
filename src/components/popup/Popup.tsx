@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { PopupProps } from './Popup.interface'
 import { useStyles } from './Popup.styles'
 
@@ -10,16 +10,26 @@ export function Popup({
   isButton,
 }: PopupProps) {
   const classes = useStyles()
+  const [timer, setTimer] = useState<number>()
+
+  const handleClose = () => {
+    setIsOpenPopup(false)
+    clearTimeout(timer)
+  }
 
   useEffect(() => {
-    const timeoutID = setTimeout(() => {
-      setIsOpenPopup(false)
-    }, time)
+    if (isOpenPopup) {
+      const timerId = setTimeout(() => {
+        setIsOpenPopup(false)
+      }, time)
+
+      setTimer(timerId)
+    }
 
     return () => {
-      clearTimeout(timeoutID)
+      clearTimeout(timer)
     }
-  })
+  }, [isOpenPopup, time, setIsOpenPopup])
 
   return (
     <div
@@ -29,7 +39,7 @@ export function Popup({
       <div className={classes.popup}>
         <div className={classes.text}>{text}</div>
         {!isButton || (
-          <button className={classes.ok} onClick={() => setIsOpenPopup(false)}>
+          <button className={classes.ok} onClick={() => handleClose()}>
             Ок
           </button>
         )}
