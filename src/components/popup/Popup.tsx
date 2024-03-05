@@ -2,13 +2,23 @@ import { useEffect } from 'react'
 import { PopupProps } from './Popup.interface'
 import { useStyles } from './Popup.styles'
 
-export function Popup({ isOpenPopup, setIsOpenPopup, text, time, isButton }: PopupProps) {
+export function Popup({
+  isOpenPopup,
+  setIsOpenPopup,
+  text,
+  time,
+  isButton,
+}: PopupProps) {
   const classes = useStyles()
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutID = setTimeout(() => {
       setIsOpenPopup(false)
     }, time)
+
+    return () => {
+      clearTimeout(timeoutID)
+    }
   })
 
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { DoughnutChart } from '../../components/doughnutChart/DoughnutChart'
 import { ArrowLaft } from '../../iconpack/ArrowLaft'
 import { useStyles } from './Train.styles'
@@ -25,6 +25,19 @@ import train from '../../assets/correct-answer.mp3'
 export default function Train() {
   const classes = useStyles()
   const navigate = useNavigate()
+
+  const audio = useRef(new Audio(train))
+
+  useEffect(() => {
+    audio.current.onended = () => {
+      audio.current.currentTime = 0
+    }
+
+    return () => {
+      audio.current.pause()
+      audio.current.onended = () => {}
+    }
+  }, [audio])
 
   const { recommendation, comment } = useExerciseStore(
     (state) => state.exercise
@@ -82,9 +95,12 @@ export default function Train() {
 
   useEffect(() => {
     if (repeat) {
-      const audio = new Audio(train) // Создаем новый экземпляр аудио
-      audio.play() // Воспроизводим звук
+      audio.current.play() // Воспроизводим звук
     }
+  }, [audio, repeat])
+
+  useEffect(() => {
+    if (repeat === data?.exercises[current]?.repeats) SwitchTrain()
   }, [repeat])
 
   const SwitchTrain = () => {
@@ -108,15 +124,15 @@ export default function Train() {
         isOpenPopup={isOpenPopupStart}
         setIsOpenPopup={setIsOpenPopupStart}
         text="Следуйте инструкциям по выполнению упражнений."
-        time={10000}
-        isButton={false}
+        time={5000}
+        isButton={true}
       />
       <Popup
         isOpenPopup={isOpenPopupBreak}
         setIsOpenPopup={setIsOpenPopupBreak}
         text="Сделайте перерыв между выполнениями упражнений 10 секунд."
         time={10000}
-        isButton={true}
+        isButton={false}
       />
       <div className={classes.train}>
         <div className={classes.windowWebCamera}>
@@ -189,16 +205,12 @@ export default function Train() {
               <ArrowLaft />
             </button>
 
-            {current + 1 < Number(data?.exercises?.length) ? (
-              <button className={classes.begin}>Начать</button>
-            ) : (
-              <button
-                className={classes.end}
-                onClick={() => navigate('/history')}
-              >
-                Завершить
-              </button>
-            )}
+            <button
+              className={classes.end}
+              onClick={() => navigate('/history')}
+            >
+              Завершить
+            </button>
           </div>
         </div>
       </div>

@@ -252,7 +252,7 @@ export const MPHandsApart90 = ({ isLoading, setIsLoading }: MPProps) => {
     })
 
     if (lHandAngle < 30 && rHandAngle < 30 && stage === 'Опустите руку') {
-      stage = 'Поднесите руку ко рту'
+      stage = 'Отведите руку на 90 градусов'
       setRecommendation(stage)
     }
 
@@ -263,11 +263,11 @@ export const MPHandsApart90 = ({ isLoading, setIsLoading }: MPProps) => {
       }
       isLeft = false
       isRight = false
-      stage = 'Поднесите руку ко рту'
+      stage = 'Отведите руку на 90 градусов'
       setRecommendation(stage)
     }
 
-    if (lHandAngle > neededAngle && stage == 'Поднесите руку ко рту') {
+    if (lHandAngle > neededAngle && stage == 'Отведите руку на 90 градусов') {
       if (suggestedText == '') {
         setComment('')
         counterCondition = true
@@ -277,7 +277,7 @@ export const MPHandsApart90 = ({ isLoading, setIsLoading }: MPProps) => {
       setRecommendation(stage)
     }
 
-    if (rHandAngle > neededAngle && stage == 'Поднесите руку ко рту') {
+    if (rHandAngle > neededAngle && stage == 'Отведите руку на 90 градусов') {
       if (suggestedText == '') {
         setComment('')
         counterCondition = true
