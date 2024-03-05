@@ -16,7 +16,7 @@ export default function App() {
     <RouterProvider>
       <Routes>
         <Route path="/*" element={<Page404 />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route
           path="/statistics"
           element={

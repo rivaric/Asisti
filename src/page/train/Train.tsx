@@ -108,14 +108,14 @@ export default function Train() {
         isOpenPopup={isOpenPopupStart}
         setIsOpenPopup={setIsOpenPopupStart}
         text="Следуйте инструкциям по выполнению упражнений."
-        time={1000}
+        time={10000}
         isButton={false}
       />
       <Popup
         isOpenPopup={isOpenPopupBreak}
         setIsOpenPopup={setIsOpenPopupBreak}
-        text="Сделайте перерыв между выполнениями упражнений около 2 секунд."
-        time={2000}
+        text="Сделайте перерыв между выполнениями упражнений 10 секунд."
+        time={10000}
         isButton={true}
       />
       <div className={classes.train}>
@@ -176,7 +176,7 @@ export default function Train() {
               {!isOpenPopupStart &&
               !isOpenPopupBreak &&
               current + 1 < Number(data?.exercises?.length) ? (
-                <Timer sec={5} completionTimer={() => SwitchTrain()} />
+                <Timer sec={60} completionTimer={() => SwitchTrain()} />
               ) : (
                 '0:00'
               )}

@@ -16,7 +16,7 @@ export const useStyles = createUseStyles({
     left: '50%',
     transform: 'translateX(-50%) translateY(-50%)',
     borderRadius: '10px',
-    padding: '30px',
+    padding: '50px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -36,6 +36,6 @@ export const useStyles = createUseStyles({
     color: '#fff',
     background: '#95BF7B',
     borderRadius: '10px',
-    padding: '15px',
+    padding: '15px 50px',
   },
 })
