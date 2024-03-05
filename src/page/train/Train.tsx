@@ -93,7 +93,8 @@ export default function Train() {
         String(data?.exercises[current]?.user_exercise_id),
         repeat
       ).then(() => {
-        setIsOpenPopupBreak(true)
+        if (current + 1 !== Number(data?.exercises?.length) - 1)
+          setIsOpenPopupBreak(true)
         setCurrent(current + 1)
         setExercises(exercises?.done + 1, exercises?.require - 1)
         setRepeat(0)
