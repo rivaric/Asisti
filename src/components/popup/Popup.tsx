@@ -1,8 +1,15 @@
+import { useEffect } from 'react'
 import { PopupProps } from './Popup.interface'
 import { useStyles } from './Popup.styles'
 
-export function Popup({ isOpenPopup, setIsOpenPopup }: PopupProps) {
+export function Popup({ isOpenPopup, setIsOpenPopup, text, time, isButton }: PopupProps) {
   const classes = useStyles()
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsOpenPopup(false)
+    }, time)
+  })
 
   return (
     <div
@@ -10,14 +17,12 @@ export function Popup({ isOpenPopup, setIsOpenPopup }: PopupProps) {
       style={{ display: isOpenPopup ? 'block' : 'none' }}
     >
       <div className={classes.popup}>
-        <div className={classes.text}>
-          Посмотрите видео с правильным выполнением упражнения, затем нажмите
-          кнопку “Начать”. <br />
-          Следите за комментариями для правильного выполнения.
-        </div>
-        <button className={classes.ok} onClick={() => setIsOpenPopup(false)}>
-          Ок
-        </button>
+        <div className={classes.text}>{text}</div>
+        {!isButton || (
+          <button className={classes.ok} onClick={() => setIsOpenPopup(false)}>
+            Ок
+          </button>
+        )}
       </div>
     </div>
   )

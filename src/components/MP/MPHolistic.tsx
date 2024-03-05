@@ -28,8 +28,10 @@ import { Camera } from '@mediapipe/camera_utils/camera_utils'
 import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
+import { MPProps } from './types'
+import { Loading } from '../loading/Loading'
 
-export const MPHolistic = () => {
+export const MPHolistic = ({ isLoading, setIsLoading }: MPProps) => {
   const { comment } = useExerciseStore((state) => state.exercise)
   const setRecommendation = useExerciseStore((state) => state.setRecommendation)
   const setComment = useExerciseStore((state) => state.setComment)
@@ -76,6 +78,8 @@ export const MPHolistic = () => {
       })
       camera.start()
     }
+
+    setIsLoading(true)
   }, [])
 
   const removeElements = (landmarks, elements) => {
@@ -323,14 +327,16 @@ export const MPHolistic = () => {
         }`}
       >
         <canvas ref={canvasRef} className="absolute w-full h-full">
-          {(
-            <Webcam
-              audio={false}
-              mirrored={true}
-              ref={webcamRef}
-              className="absolute w-full h-full"
-            />
-          ) || <Loading />}
+          <Webcam
+            audio={false}
+            mirrored={true}
+            ref={webcamRef}
+            onUserMedia={(value) => {
+              setIsLoading(false)
+              console.log(value)
+            }}
+            className="absolute w-full h-full"
+          />
         </canvas>
       </div>
     </div>

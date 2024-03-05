@@ -12,12 +12,15 @@ import {
   MPForehead,
   MPBackhead,
   MPTopHead,
+  MPHandsApart90,
+  MPHandsApart120,
+  MPHandsApart180,
 } from '../../components/MP/index'
 import { useExerciseStore, useTrainStore } from '../../store'
 import { useNavigate } from 'react-router-dom'
 import { Timer } from '../../components/timer/Timer'
 import { Loading } from '../../components/loading/Loading'
-import train from '../../assets/train.mp3'
+import train from '../../assets/correct-answer.mp3'
 
 export default function Train() {
   const classes = useStyles()
@@ -31,7 +34,9 @@ export default function Train() {
   const setRepeat = useTrainStore((state) => state.setRepeat)
   const setExercises = useTrainStore((state) => state.setExercises)
 
-  const [isOpenPopup, setIsOpenPopup] = useState(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isOpenPopupStart, setIsOpenPopupStart] = useState(true)
+  const [isOpenPopupBreak, setIsOpenPopupBreak] = useState(false)
   const [current, setCurrent] = useState(0)
   const [data, setData] = useState<{
     exercises: Exercise[]
@@ -44,10 +49,27 @@ export default function Train() {
   }>()
 
   const ObjMP = {
-    hand_to_mouth: <MPHolistic />,
-    hand_to_forehead: <MPForehead />,
-    hand_to_back_head: <MPBackhead />,
-    hand_to_top_head: <MPTopHead />,
+    hand_to_mouth: (
+      <MPHolistic isLoading={isLoading} setIsLoading={setIsLoading} />
+    ),
+    hand_to_forehead: (
+      <MPForehead isLoading={isLoading} setIsLoading={setIsLoading} />
+    ),
+    hand_to_back_head: (
+      <MPBackhead isLoading={isLoading} setIsLoading={setIsLoading} />
+    ),
+    hand_to_top_head: (
+      <MPTopHead isLoading={isLoading} setIsLoading={setIsLoading} />
+    ),
+    hand_apart_90: (
+      <MPHandsApart90 isLoading={isLoading} setIsLoading={setIsLoading} />
+    ),
+    hand_apart_120: (
+      <MPHandsApart120 isLoading={isLoading} setIsLoading={setIsLoading} />
+    ),
+    hand_apart_180: (
+      <MPHandsApart180 isLoading={isLoading} setIsLoading={setIsLoading} />
+    ),
   }
 
   useEffect(() => {
@@ -66,12 +88,12 @@ export default function Train() {
   }, [repeat])
 
   const SwitchTrain = () => {
-    console.log(1)
     if (current + 1 < Number(data?.exercises?.length))
       completeExercise(
         String(data?.exercises[current]?.user_exercise_id),
         repeat
       ).then(() => {
+        setIsOpenPopupBreak(true)
         setCurrent(current + 1)
         setExercises(exercises?.done + 1, exercises?.require - 1)
         setRepeat(0)
@@ -81,12 +103,30 @@ export default function Train() {
   return (
     <div className={classes.container}>
       <Root />
-      <Popup isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} />
+      <Popup
+        isOpenPopup={isOpenPopupStart}
+        setIsOpenPopup={setIsOpenPopupStart}
+        text="Следуйте инструкциям по выполнению упражнений."
+        time={1000}
+        isButton={false}
+      />
+      <Popup
+        isOpenPopup={isOpenPopupBreak}
+        setIsOpenPopup={setIsOpenPopupBreak}
+        text="Сделайте перерыв между выполнениями упражнений около 2 секунд."
+        time={2000}
+        isButton={true}
+      />
       <div className={classes.train}>
         <div className={classes.windowWebCamera}>
-          <Loading>
-            <MPHolistic />
-          </Loading>
+          {ObjMP[data?.exercises[current]?.name as keyof typeof ObjMP]}
+          {isLoading ? (
+            <div className={classes.loader}>
+              <Loading />
+            </div>
+          ) : (
+            ''
+          )}
         </div>
         <div className={classes.info}>
           <div className={classes.comment}>
@@ -132,8 +172,12 @@ export default function Train() {
                 <Clock />
               </div>
 
-              {!isOpenPopup && (
-                <Timer sec={60} completionTimer={() => SwitchTrain()} />
+              {!isOpenPopupStart &&
+              !isOpenPopupBreak &&
+              current + 1 < Number(data?.exercises?.length) ? (
+                <Timer sec={5} completionTimer={() => SwitchTrain()} />
+              ) : (
+                '0:00'
               )}
             </div>
 

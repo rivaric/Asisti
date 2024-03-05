@@ -25,26 +25,33 @@ import {
   lerp,
 } from '@mediapipe/drawing_utils/drawing_utils'
 import { Camera } from '@mediapipe/camera_utils/camera_utils'
-import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
+import {
+  calcAngle,
+  calcDist,
+  getCoords,
+  makeSuggest,
+  makeSuggestHandsApart,
+} from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
 import { MPProps } from './types'
 import { Loading } from '../loading/Loading'
 
-export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
+export const MPHandsApart120 = ({ isLoading, setIsLoading }: MPProps) => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
-
   const { comment } = useExerciseStore((state) => state.exercise)
   const setRecommendation = useExerciseStore((state) => state.setRecommendation)
   const setComment = useExerciseStore((state) => state.setComment)
   const addRepeat = useTrainStore((state) => state.addRepeat)
+  const neededAngle = 120
 
-  let stage = null
+  let stage = 'Опустите руку'
   let lAngle = 0
   let rAngle = 0
-  let lDist = 1000
-  let rDist = 1000
+  let lHandAngle = 0
+  let rHandAngle = 0
+
   let isLeft = false
   let isRight = false
   let lS = createDeque()
@@ -130,19 +137,18 @@ export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
     let lElbow = [1000, 1000]
     let lWrist = [1000, 1000]
     let lEar = [1000, 1000]
+    let lHip = [1000, 1000]
 
     let rShoulder = [1000, 1000]
     let rElbow = [1000, 1000]
     let rWrist = [1000, 1000]
     let rEar = [1000, 1000]
+    let rHip = [1000, 1000]
+
     let mouth = [1000, 1000]
-    let nose = [1000, 1000]
 
     let suggestedText
     let counterCondition = false
-
-    let forehead = [1000, 1000]
-    // removeLandmarks(results);
     canvasCtx.save()
     canvasCtx.clearRect(0, 0, videoWidth, videoHeight)
     canvasCtx.translate(videoWidth, 0)
@@ -155,34 +161,19 @@ export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
       canvasElement.height
     )
     canvasCtx.lineWidth = 5
-    // if (results.poseLandmarks) {
-    //     if (results.rightHandLandmarks) {
-    //         canvasCtx.strokeStyle = 'white';
-    //         connect(canvasCtx, [[
-    //             results.poseLandmarks[POSE_LANDMARKS.RIGHT_ELBOW],
-    //             results.rightHandLandmarks[0]
-    //         ]]);
-    //     }
-    //     if (results.leftHandLandmarks) {
-    //         canvasCtx.strokeStyle = 'white';
-    //         connect(canvasCtx, [[
-    //             results.poseLandmarks[POSE_LANDMARKS.LEFT_ELBOW],
-    //             results.leftHandLandmarks[0]
-    //         ]]);
-    //     }
-    // }
-    // Pose...
     if (results.poseLandmarks) {
       lShoulder = getCoords(results.poseLandmarks[11])
       lElbow = getCoords(results.poseLandmarks[13])
       lWrist = getCoords(results.poseLandmarks[15])
       lEar = getCoords(results.poseLandmarks[7])
+      lHip = getCoords(results.poseLandmarks[23])
 
       rShoulder = getCoords(results.poseLandmarks[12])
       rElbow = getCoords(results.poseLandmarks[14])
       rWrist = getCoords(results.poseLandmarks[16])
       rEar = getCoords(results.poseLandmarks[8])
-      nose = getCoords(results.poseLandmarks[POSE_LANDMARKS.NOSE])
+      rHip = getCoords(results.poseLandmarks[24])
+
       const lMouth = getCoords(results.poseLandmarks[POSE_LANDMARKS.LEFT_RIGHT])
       const rMouth = getCoords(results.poseLandmarks[POSE_LANDMARKS.RIGHT_LEFT])
       mouth = [(lMouth[0] + rMouth[0]) / 2, (lMouth[1] + rMouth[1]) / 2]
@@ -197,14 +188,23 @@ export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
       const diffsh = Math.abs(l_s_c - r_s_c)
       const diffear = Math.abs(l_e_c - r_e_c)
 
-      suggestedText = makeSuggest(diffl - 0.05, diffr - 0.05, diffsh, diffear)
+      suggestedText = makeSuggestHandsApart(
+        diffl - 0.1,
+        diffr - 0.1,
+        diffsh,
+        diffear,
+        rAngle,
+        lAngle
+      )
 
-      if (suggestedText != '' && stage == 'Поднесите руку к макушке') {
+      if (suggestedText != '') {
         setComment(suggestedText)
       }
 
       lAngle = calcAngle(lShoulder, lElbow, lWrist)
       rAngle = calcAngle(rShoulder, rElbow, rWrist)
+      lHandAngle = calcAngle(lHip, lShoulder, lElbow)
+      rHandAngle = calcAngle(rHip, rShoulder, rElbow)
 
       drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
         color: 'white',
@@ -224,99 +224,50 @@ export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
         { visibilityMin: 0.65, color: 'white', fillColor: 'rgb(0,217,231)' }
       )
     }
-
     // Hands...
-    // drawConnectors(
-    //     canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS,
-    //     { color: 'white' });
-    // drawLandmarks(canvasCtx, results.rightHandLandmarks, {
-    //     visibilityMin: 0.65,
-    //     color: 'white',
-    //     fillColor: 'rgb(0,217,231)',
-    //     lineWidth: 2,
-    //     radius: (data) => {
-    //         return lerp(data.from.z, -0.15, .1, 10, 1);
-    //     }
-    // });
+    drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, {
+      color: 'white',
+    })
+    drawLandmarks(canvasCtx, results.rightHandLandmarks, {
+      visibilityMin: 0.65,
+      color: 'white',
+      fillColor: 'rgb(0,217,231)',
+      lineWidth: 2,
+      radius: (data) => {
+        return lerp(data.from.z, -0.15, 0.1, 10, 1)
+      },
+    })
 
-    // drawConnectors(
-    //     canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS,
-    //     { color: 'white' });
+    drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, {
+      color: 'white',
+    })
+    drawLandmarks(canvasCtx, results.leftHandLandmarks, {
+      visibilityMin: 0.65,
+      color: 'white',
+      fillColor: 'rgb(255,138,0)',
+      lineWidth: 2,
+      radius: (data) => {
+        return lerp(data.from.z, -0.15, 0.1, 10, 1)
+      },
+    })
 
-    // drawLandmarks(canvasCtx, results.leftHandLandmarks, {
-    //     visibilityMin: 0.65,
-    //     color: 'white',
-    //     fillColor: 'rgb(255,138,0)',
-    //     lineWidth: 2,
-    //     radius: (data) => {
-    //         return lerp(data.from.z, -0.15, .1, 10, 1);
-    //     }
-    // });
-
-    if (results.faceLandmarks && results.poseLandmarks[16]) {
-      forehead = getCoords(results.faceLandmarks[151])
-      forehead[1] = forehead[1] - (nose[1] - forehead[1])
-      rDist = calcDist(forehead, rWrist)
-      // console.log('r', 'rf', forehead[1], 'rw', rWrist[1], 'ra', rAngle, 'rd', rDist)
-    }
-
-    if (results.faceLandmarks && results.poseLandmarks[15]) {
-      forehead = getCoords(results.faceLandmarks[151])
-      forehead[1] = forehead[1] - (nose[1] - forehead[1])
-      lDist = calcDist(forehead, lWrist)
-      // console.log('l', 'lf', forehead[1], 'lw', lWrist[1], 'la', lAngle, 'ld', lDist)
-    }
-
-    // Face...
-    // drawConnectors(
-    //     canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION,
-    //     { color: '#C0C0C070', lineWidth: 1 });
-
-    // drawConnectors(
-    //     canvasCtx, results.faceLandmarks, FACEMESH_RIGHT_EYE,
-    //     { color: 'rgb(0,217,231)' });
-    // drawConnectors(
-    //     canvasCtx, results.faceLandmarks, FACEMESH_RIGHT_EYEBROW,
-    //     { color: 'rgb(0,217,231)' });
-    // drawConnectors(
-    //     canvasCtx, results.faceLandmarks, FACEMESH_LEFT_EYE,
-    //     { color: 'rgb(255,138,0)' });
-    // drawConnectors(
-    //     canvasCtx, results.faceLandmarks, FACEMESH_LEFT_EYEBROW,
-    //     { color: 'rgb(255,138,0)' });
-    // drawConnectors(
-    //     canvasCtx, results.faceLandmarks, FACEMESH_FACE_OVAL,
-    //     { color: '#E0E0E0', lineWidth: 5 });
-    // drawConnectors(
-    //     canvasCtx, results.faceLandmarks, FACEMESH_LIPS,
-    //     { color: '#E0E0E0', lineWidth: 5 });
-
-    // canvasCtx.restore();
-    if (lAngle > 100 && rAngle > 100 && stage === null) {
-      stage = 'Поднесите руку к макушке'
+    if (lHandAngle < 30 && rHandAngle < 30 && stage === 'Опустите руку') {
+      stage = 'Поднесите руку ко рту'
       setRecommendation(stage)
     }
 
-    if (
-      (lAngle > 100 && lShoulder[1] < lElbow[1] && isLeft) ||
-      (rAngle > 100 && rShoulder[1] < rElbow[1] && isRight)
-    ) {
+    if ((lHandAngle < 30 && isLeft) || (rHandAngle < 30 && isRight)) {
       if (stage == 'Опустите руку') {
         lS.clear()
         rS.clear()
       }
       isLeft = false
       isRight = false
-      stage = 'Поднесите руку к макушке'
+      stage = 'Поднесите руку ко рту'
       setRecommendation(stage)
     }
 
-    if (
-      lWrist[1] < forehead[1] &&
-      lDist < 0.08 &&
-      lElbow[1] < lShoulder[1] &&
-      stage == 'Поднесите руку к макушке'
-    ) {
+    if (lHandAngle > neededAngle && stage == 'Поднесите руку ко рту') {
       if (suggestedText == '') {
         setComment('')
         counterCondition = true
@@ -326,12 +277,7 @@ export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
       setRecommendation(stage)
     }
 
-    if (
-      rWrist[1] < forehead[1] &&
-      rDist < 0.08 &&
-      rElbow[1] < rShoulder[1] &&
-      stage == 'Поднесите руку к макушке'
-    ) {
+    if (rHandAngle > neededAngle && stage == 'Поднесите руку ко рту') {
       if (suggestedText == '') {
         setComment('')
         counterCondition = true
@@ -368,5 +314,3 @@ export const MPTopHead = ({ isLoading, setIsLoading }: MPProps) => {
     </div>
   )
 }
-
-export default MPTopHead

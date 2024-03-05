@@ -29,7 +29,7 @@ import { calcAngle, calcDist, getCoords, makeSuggest } from './lib'
 import { createDeque } from './lib'
 import { useExerciseStore, useTrainStore } from '../../store'
 
-export const MPBackhead = () => {
+export const MPBackhead = ({ isLoading, setIsLoading }: MPProps) => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
 
@@ -76,6 +76,8 @@ export const MPBackhead = () => {
       })
       camera.start()
     }
+
+    setIsLoading(true)
   }, [])
 
   const removeElements = (landmarks, elements) => {
@@ -341,6 +343,10 @@ export const MPBackhead = () => {
             audio={false}
             mirrored={true}
             ref={webcamRef}
+            onUserMedia={(value) => {
+              setIsLoading(false)
+              console.log(value)
+            }}
             className="absolute w-full h-full"
           />
         </canvas>

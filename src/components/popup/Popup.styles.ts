@@ -23,18 +23,19 @@ export const useStyles = createUseStyles({
   },
 
   text: {
-    fontSize: 'clamp(1.2rem, 0rem + 1.25vw, 3rem)',
+    fontSize: 'clamp(3.5rem, 0rem + 1.25vw, 2rem)',
     fontWeight: '400',
     color: '#000',
     textAlign: 'center',
     marginBottom: '20px',
+    minWidth: '1000px',
   },
 
   ok: {
+    fontSize: 'clamp(3.5rem, 0rem + 1.25vw, 2rem)',
     color: '#fff',
     background: '#95BF7B',
     borderRadius: '10px',
-    width: '107px',
-    height: '42px',
+    padding: '15px',
   },
 })

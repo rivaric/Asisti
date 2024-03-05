@@ -17,6 +17,7 @@ export const useStyles = createUseStyles({
   },
 
   windowWebCamera: {
+    position: 'relative',
     flexGrow: '1',
     display: 'flex',
     justifyContent: 'center',
@@ -25,7 +26,12 @@ export const useStyles = createUseStyles({
     borderRadius: '10px',
     marginBottom: '30px',
   },
-
+  loader: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
   info: {
     height: '25%',
     display: 'flex',

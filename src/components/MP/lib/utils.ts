@@ -53,3 +53,32 @@ export function makeSuggest(diffl, diffr, diffsh = 0, diffear = 0) {
 
   return suggest
 }
+
+export function makeSuggestHandsApart(
+  diffl,
+  diffr,
+  diffsh,
+  diffear,
+  lAngle,
+  rAngle
+) {
+  let suggest = ''
+
+  if (diffl >= 0.045 || diffr >= 0.045) {
+    suggest = 'Старайтесь не поднимать плечо'
+  }
+
+  if (diffear > 0.04) {
+    suggest = 'Старайтесь не наклонять голову'
+  }
+
+  if (diffsh >= 0.06) {
+    suggest = 'Старайтесь не наклоняться'
+  }
+
+  if (lAngle < 100 || rAngle < 100) {
+    suggest = 'Старайтесь не сгибать руки'
+  }
+
+  return suggest
+}
