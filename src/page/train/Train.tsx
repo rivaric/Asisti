@@ -20,24 +20,34 @@ import { useExerciseStore, useTrainStore } from '../../store'
 import { useNavigate } from 'react-router-dom'
 import { Timer } from '../../components/timer/Timer'
 import { Loading } from '../../components/loading/Loading'
-import train from '../../assets/correct-answer.mp3'
+import voiceDone from '../../assets/done.mp3'
+import voiceStart from '../../assets/start.mp3'
+import voiceBrake from '../../assets/brake.mp3'
 
 export default function Train() {
   const classes = useStyles()
   const navigate = useNavigate()
 
-  const audio = useRef(new Audio(train))
+  const audioBrake = useRef(new Audio(voiceBrake))
+  const audioStart = useRef(new Audio(voiceStart))
+  const audioDone = useRef(new Audio(voiceDone))
 
   useEffect(() => {
-    const currentAudio = audio.current
+    const currentAudios = [
+      audioBrake.current,
+      audioDone.current,
+      audioStart.current,
+    ]
 
-    currentAudio.onended = () => {
+    currentAudios.forEach((currentAudio) => {
       currentAudio.currentTime = 0
-    }
+    })
 
     return () => {
-      currentAudio.pause()
-      currentAudio.onended = () => {}
+      currentAudios.forEach((currentAudio) => {
+        currentAudio.pause()
+        currentAudio.onended = () => {}
+      })
     }
   }, [])
 
@@ -81,13 +91,29 @@ export default function Train() {
   }, [setExercises])
 
   useEffect(() => {
-    if (repeat) {
-      audio.current.play() // Воспроизводим звук
+    if (isOpenPopupBreak || isOpenPopupStart) setRepeat(0)
+  }, [repeat, isOpenPopupBreak, isOpenPopupStart, setRepeat])
+
+  useEffect(() => {
+    if (repeat && !isOpenPopupBreak && !isOpenPopupStart) {
+      audioDone.current.play()
     }
-  }, [audio, repeat])
+  }, [repeat, isOpenPopupBreak, isOpenPopupStart])
+
+  useEffect(() => {
+    if (isOpenPopupStart) {
+      audioStart.current.play()
+    }
+    if (isOpenPopupBreak) {
+      audioBrake.current.play()
+    }
+  }, [audioStart, audioDone, audioBrake, isOpenPopupBreak, isOpenPopupStart])
 
   const SwitchTrain = useCallback(() => {
     setIsOpenPopupBreak(true)
+    if (exercises.require === 0) {
+      navigate('/history')
+    }
     completeExercise(
       String(data?.exercises[current]?.user_exercise_id),
       repeat
@@ -105,6 +131,8 @@ export default function Train() {
     setExercises,
     setCurrent,
     setRepeat,
+    navigate,
+    setIsOpenPopupBreak,
   ])
 
   useEffect(() => {
