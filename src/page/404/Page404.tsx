@@ -9,11 +9,8 @@ export default function Page404() {
     <div className={classes.container}>
       <h1 className={classes.title}>404</h1>
       <div className={classes.text}>Страница не найдена</div>
-      <button
-        className={classes.button}
-        onClick={() => navigate('/statistics')}
-      >
-        Вернуться на главную
+      <button className={classes.button} onClick={() => navigate('/')}>
+        Вернуться на логин
       </button>
     </div>
   )
