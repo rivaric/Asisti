@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
   scheduled: {
     flexGrow: '1',
-    maxHeight: '53%',
+    maxHeight: '40%',
     background: '#F2F3F4',
     borderRadius: '10px',
     padding: '20px 25px',

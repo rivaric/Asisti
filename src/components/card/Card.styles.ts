@@ -22,6 +22,12 @@ export const useStyles = createUseStyles({
   },
 
   name: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    margin: 'auto',
     fontSize: '14px',
     color: '#000',
     fontWeight: '400',

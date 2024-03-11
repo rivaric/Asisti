@@ -8,7 +8,8 @@ export const useStyles = createUseStyles({
     width: '100%',
     background: '#F2F3F4',
     borderRadius: '10px',
-    padding: 'calc(10px + 1vw)',
+    padding: '20px',
+    paddingBottom: '60px',
     height: '90%',
   },
 
@@ -17,10 +18,12 @@ export const useStyles = createUseStyles({
     textAlign: 'center',
     fontWeight: '600',
     color: '#0F1317',
-    marginBottom: '21px',
+    marginBottom: '22px',
   },
 
   exercise: {
+    position: 'relative',
+    overflow: 'hidden',
     background: '#fff',
     borderRadius: '10px',
     flexGrow: '1',
@@ -31,6 +34,7 @@ export const useStyles = createUseStyles({
     justifyContent: 'space-between',
     cursor: 'pointer',
     width: '80%',
+    minHeight: '312px',
   },
 
   counter: {

@@ -2,6 +2,7 @@
 
 body {
   font-family: 'Montserrat';
+  overflow: hidden;
 }
 
 /* Reset and base styles  */

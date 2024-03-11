@@ -13,7 +13,9 @@ export default function Statistics() {
   const [data, setData] = useState<Exercise[]>([])
 
   useEffect(() => {
-    getExercises().then(({ data: fetchedData }) => setData(fetchedData.exercises))
+    getExercises().then(({ data: fetchedData }) =>
+      setData(fetchedData.exercises)
+    )
   }, [])
 
   return (

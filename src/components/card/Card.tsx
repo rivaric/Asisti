@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useStyles } from './Card.styles'
-import exercise from '../../assets/exercise.jpg'
+import { getTrainingPhotos } from '../../lib/getTrainingPhotos'
 
 interface CardProps {
   id?: string
@@ -15,8 +15,11 @@ export function Card({ id, name, verbose_name }: CardProps) {
 
   return (
     <div className={classes.train} onClick={() => navigate(`/train/${id}`)}>
-      <div className={classes.descr}>15 мин • 5 упражнений</div>
-      <img src={exercise} width="80%" />
+      <div className={classes.descr}>6 мин • 5 упражнений</div>
+      <img
+        src={getTrainingPhotos(verbose_name || '')}
+        style={{ minHeight: '170px' }}
+      />
       <div className={classes.name}>{verbose_name || name}</div>
     </div>
   )
